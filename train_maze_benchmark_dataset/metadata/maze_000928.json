@@ -1,0 +1,1 @@
+{"id": 928, "size": 136, "algorithm": "kruskal", "entrance": [1, 0], "exit": [1, 136], "generation_attempts": 1, "metrics": {"path_density": 0.49278064894240503, "dead_ends": 1422, "longest_path": 752, "shortest_path_length": 536, "branching_factor": 1.9711225957696201, "solvable": true}}

@@ -1,0 +1,1 @@
+{"id": 5638, "size": 198, "algorithm": "recursive_backtrack", "entrance": [1, 0], "exit": [1, 198], "generation_attempts": 1, "metrics": {"path_density": 0.4950127522032272, "dead_ends": 992, "longest_path": 7830, "shortest_path_length": 2758, "branching_factor": 1.9800510088129089, "solvable": true}}
