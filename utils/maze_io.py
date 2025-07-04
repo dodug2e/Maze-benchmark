@@ -24,7 +24,7 @@ class MazeDataLoader:
     def _validate_dataset_structure(self):
         """데이터셋 구조 검증"""
         required_subsets = ["train", "valid", "test"]
-        required_subdirs = ["img", "metadata", "arrays"]
+        required_subdirs = ["images", "metadata", "arrays"]
         
         for subset in required_subsets:
             subset_path = self.dataset_root / subset
@@ -87,7 +87,7 @@ class MazeDataLoader:
     
     def get_sample_ids(self, subset: str) -> list:
         """특정 subset의 모든 샘플 ID 목록 반환"""
-        img_dir = self.dataset_root / subset / "img"
+        img_dir = self.dataset_root / subset / "images"
         if not img_dir.exists():
             raise FileNotFoundError(f"Image directory not found: {img_dir}")
         
