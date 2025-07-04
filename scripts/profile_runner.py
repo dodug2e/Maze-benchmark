@@ -166,50 +166,50 @@ def profile_algorithm_performance(config: ProfilingConfig) -> Dict[str, Any]:
 def print_profiling_results(results: Dict[str, Any]):
     """프로파일링 결과 출력"""
     print(f"\n{'='*60}")
-    print(f"프로파일링 결과: {results['algorithm']}")
+    print(f"프로파일링 결과: {results.get('algorithm', 'N/A')}")
     print(f"{'='*60}")
-    
-    summary = results['summary']
-    print(f"측정 횟수: {summary['total_measurements']}")
-    print(f"성공률: {summary['success_rate']:.1%}")
-    
+
+    summary = results.get('summary', {})
+    print(f"측정 횟수: {summary.get('total_measurements', 0)}")
+    print(f"성공률: {summary.get('success_rate', 0):.1%}")
+
     print(f"\n실행 시간 (초):")
-    exec_stats = summary['execution_time']
-    print(f"  평균: {exec_stats['mean']:.3f}s")
-    print(f"  최소: {exec_stats['min']:.3f}s")
-    print(f"  최대: {exec_stats['max']:.3f}s")
-    print(f"  중간값: {exec_stats['median']:.3f}s")
-    
+    exec_stats = summary.get('execution_time', {})
+    print(f"  평균: {exec_stats.get('mean', 0):.3f}s")
+    print(f"  최소: {exec_stats.get('min', 0):.3f}s")
+    print(f"  최대: {exec_stats.get('max', 0):.3f}s")
+    print(f"  중간값: {exec_stats.get('median', 0):.3f}s")
+
     print(f"\nVRAM 사용량 변화 (MB):")
-    vram_stats = summary['vram_delta_mb']
-    print(f"  평균: {vram_stats['mean']:.1f}MB")
-    print(f"  최소: {vram_stats['min']:.1f}MB")
-    print(f"  최대: {vram_stats['max']:.1f}MB")
-    
+    vram_stats = summary.get('vram_delta_mb', {})
+    print(f"  평균: {vram_stats.get('mean', 0):.1f}MB")
+    print(f"  최소: {vram_stats.get('min', 0):.1f}MB")
+    print(f"  최대: {vram_stats.get('max', 0):.1f}MB")
+
     print(f"\nGPU 사용률 (%):")
-    gpu_stats = summary['gpu_utilization']
-    print(f"  평균: {gpu_stats['mean']:.1f}%")
-    print(f"  최대: {gpu_stats['max']:.1f}%")
-    
+    gpu_stats = summary.get('gpu_utilization', {})
+    print(f"  평균: {gpu_stats.get('mean', 0):.1f}%")
+    print(f"  최대: {gpu_stats.get('max', 0):.1f}%")
+
     print(f"\nCPU 사용률 (%):")
-    cpu_stats = summary['cpu_utilization']
-    print(f"  평균: {cpu_stats['mean']:.1f}%")
-    print(f"  최대: {cpu_stats['max']:.1f}%")
-    
-    power_stats = summary['power_consumption']
-    if power_stats['mean'] > 0:
+    cpu_stats = summary.get('cpu_utilization', {})
+    print(f"  평균: {cpu_stats.get('mean', 0):.1f}%")
+    print(f"  최대: {cpu_stats.get('max', 0):.1f}%")
+
+    power_stats = summary.get('power_consumption', {})
+    if power_stats.get('mean', 0) > 0:
         print(f"\n전력 소비 (W):")
-        print(f"  평균: {power_stats['mean']:.1f}W")
-        print(f"  최대: {power_stats['max']:.1f}W")
-    
-    # RTX 3060 한계 경고
-    limits = results['rtx3060_limits']
-    if limits['warnings']:
+        print(f"  평균: {power_stats.get('mean', 0):.1f}W")
+        print(f"  최대: {power_stats.get('max', 0):.1f}W")
+
+    limits = results.get('rtx3060_limits', {})
+    warnings = limits.get('warnings', [])
+    if warnings:
         print(f"\n⚠️  RTX 3060 한계 경고:")
-        for warning in limits['warnings']:
+        for warning in warnings:
             print(f"  - {warning}")
-    
-    print(f"\nVRAM 사용률: {limits['vram_utilization_percent']:.1f}%")
+
+    print(f"\nVRAM 사용률: {limits.get('vram_utilization_percent', 0):.1f}%")
 
 def main():
     parser = argparse.ArgumentParser(description='Profile maze-solving algorithms')
