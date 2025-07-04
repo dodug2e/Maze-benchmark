@@ -18,12 +18,6 @@ try:
 except ImportError:
     TORCH_AVAILABLE = False
 
-try:
-    import tensorflow as tf
-    TF_AVAILABLE = True
-except ImportError:
-    TF_AVAILABLE = False
-
 # 기본 시드 값
 DEFAULT_SEED = 42
 
@@ -74,11 +68,6 @@ class SeedManager:
                 torch.backends.cudnn.benchmark = False
                 
                 results['torch_cuda'] = f"seed={self.seed}, devices={torch.cuda.device_count()}"
-        
-        # TensorFlow
-        if TF_AVAILABLE:
-            tf.random.set_seed(self.seed)
-            results['tensorflow'] = f"seed={self.seed}, version={tf.__version__}"
         
         # 환경 변수 설정 (추가적인 결정적 동작)
         os.environ['PYTHONHASHSEED'] = str(self.seed)
@@ -133,11 +122,6 @@ class SeedManager:
             state['torch_random_state'] = torch.get_rng_state()
             if torch.cuda.is_available():
                 state['torch_cuda_random_state'] = torch.cuda.get_rng_state()
-        
-        # TensorFlow 상태 추가
-        if TF_AVAILABLE:
-            # TensorFlow는 상태 추출이 복잡하므로 시드 값만 저장
-            state['tensorflow_seed'] = self.seed
         
         return state
     
@@ -261,7 +245,6 @@ def create_experiment_config(seed: int = DEFAULT_SEED,
         'reproducible_state': manager.create_reproducible_state(),
         'library_availability': {
             'torch': TORCH_AVAILABLE,
-            'tensorflow': TF_AVAILABLE,
             'cuda': TORCH_AVAILABLE and torch.cuda.is_available() if TORCH_AVAILABLE else False
         },
         'hardware_info': {}
