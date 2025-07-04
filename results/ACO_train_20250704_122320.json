@@ -1,0 +1,49 @@
+{
+  "algorithm": "ACO",
+  "total_samples": 3,
+  "successful_runs": 0,
+  "failed_runs": 3,
+  "average_solution_length": 0,
+  "average_execution_time": 0,
+  "performance_metrics": {
+    "duration_seconds": 0.5,
+    "total_samples": 1,
+    "cpu_percent": {
+      "min": 0.0,
+      "max": 0.0,
+      "avg": 0.0,
+      "peak": 0.0
+    },
+    "memory_mb": {
+      "min": 14140.66015625,
+      "max": 14140.66015625,
+      "avg": 14140.66015625,
+      "peak": 14140.66015625
+    },
+    "gpu_percent": {
+      "min": 0,
+      "max": 0,
+      "avg": 0.0,
+      "peak": 0
+    },
+    "vram_used_mb": {
+      "min": 1724.83203125,
+      "max": 1724.83203125,
+      "avg": 1724.83203125,
+      "peak": 1724.83203125
+    },
+    "vram_total_mb": 6144.0,
+    "power_watts": {
+      "min": 15.541,
+      "max": 15.541,
+      "avg": 15.541,
+      "peak": 15.541
+    },
+    "temperature_c": {
+      "min": 35,
+      "max": 35,
+      "avg": 35.0,
+      "peak": 35
+    }
+  }
+}

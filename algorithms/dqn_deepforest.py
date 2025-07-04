@@ -7,7 +7,7 @@ DQN + Deep Forest 알고리즘 (refactored)
 - Reward 중복 패널티 제거
 - Random seed helper for reproducibility
 """
-
+from algorithms import BaseAlgorithm
 import copy
 import random
 import time
@@ -569,3 +569,37 @@ if __name__ == "__main__":
                 top3 = np.argsort(vals)[-3:][::-1]
                 top_vals = [f"{vals[i]:.3f}" for i in top3]
                 print(f"{act}/{typ} top feat idx: {top3} | val {top_vals}")
+
+class DQNDeepForestAlgorithm(BaseAlgorithm):
+    def __init__(self, name: str = "DQN+DeepForest"):
+        super().__init__(name)
+        self.solver = None
+
+    def configure(self, config: dict):
+        super().configure(config)
+        from algorithms.dqn_deepforest import DQNDeepForestSolver
+        self.solver = DQNDeepForestSolver(
+            episodes=config.get("episodes", 200),
+            max_steps_ep=config.get("max_steps", 200),
+        )
+
+    def solve(self, maze_array, metadata):
+        if self.solver is None:
+            self.configure({})
+
+        start = tuple(metadata.get("entrance", (0, 0)))
+        goal = tuple(metadata.get("exit", (maze_array.shape[0] - 1, maze_array.shape[1] - 1)))
+
+        result = self.solver.solve(maze_array, start, goal)
+        return {
+            'success': result.solution_found,
+            'solution_path': result.path or [],
+            'solution_length': result.solution_length,
+            'execution_time': result.execution_time,
+            'additional_info': {
+                'training_episodes': result.training_episodes,
+                'average_reward': result.average_reward,
+                'failure_reason': result.failure_reason,
+                'feature_importance': result.feature_importance
+            }
+        }

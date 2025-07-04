@@ -9,7 +9,7 @@ PPO (Proximal Policy Optimization) 알고리즘 구현 - 최적화 버전
 4. 프로파일러 통합
 5. 조기 종료 및 커리큘럼 학습
 """
-
+from algorithms import BaseAlgorithm
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -25,6 +25,39 @@ import logging
 from collections import deque
 
 logger = logging.getLogger(__name__)
+
+class PPOAlgorithm(BaseAlgorithm):
+    def __init__(self, name: str = "PPO"):
+        super().__init__(name)
+        self.solver = None
+
+    def configure(self, config: dict):
+        super().configure(config)
+        from algorithms.ppo import PPOSolver
+        self.solver = PPOSolver(
+            max_episodes=config.get("max_episodes", 500),
+            lr=config.get("lr", 3e-4)
+        )
+
+    def solve(self, maze_array, metadata):
+        if self.solver is None:
+            self.configure({})
+
+        start = tuple(metadata.get("entrance", (0, 0)))
+        goal = tuple(metadata.get("exit", (maze_array.shape[0] - 1, maze_array.shape[1] - 1)))
+
+        result = self.solver.solve(maze_array, start, goal)
+        return {
+            'success': result.solution_found,
+            'solution_path': result.path,
+            'solution_length': result.solution_length,
+            'execution_time': result.execution_time,
+            'additional_info': {
+                'training_episodes': result.training_episodes,
+                'average_reward': result.average_reward,
+                'failure_reason': result.failure_reason
+            }
+        }
 
 @dataclass
 class PPOResult:
