@@ -1,0 +1,80 @@
+# PPO RTX 3060 최적화 설정
+# VRAM 6GB 제한을 고려한 하이퍼파라미터
+
+# 기본 학습 설정
+training:
+  total_timesteps: 1000000      # 총 학습 스텝 수
+  max_episode_steps: 1000       # 에피소드당 최대 스텝
+  save_interval: 50000          # 모델 저장 간격
+  
+# PPO 알고리즘 설정
+ppo:
+  learning_rate: 0.0003         # 학습률
+  gamma: 0.99                   # 할인 인수
+  gae_lambda: 0.95              # GAE 람다
+  clip_coef: 0.2                # PPO 클리핑 계수
+  value_loss_coef: 0.5          # 가치 손실 계수
+  entropy_coef: 0.01            # 엔트로피 계수
+  max_grad_norm: 0.5            # 그래디언트 클리핑
+  n_epochs: 10                  # PPO 업데이트 에포크
+
+# 네트워크 구조
+network:
+  hidden_sizes: [512, 256]      # 은닉층 크기
+  dropout: 0.1                  # 드롭아웃 비율
+  activation: "relu"            # 활성화 함수
+
+# 메모리 최적화 (RTX 3060 6GB 고려)
+memory:
+  buffer_size: 2048             # 경험 버퍼 크기
+  batch_size: 64                # 미니배치 크기
+  
+# 크기별 동적 설정
+size_configs:
+  small:  # 50x50 이하
+    buffer_size: 4096
+    batch_size: 128
+    hidden_sizes: [256, 128]
+    
+  medium: # 50x50 ~ 100x100  
+    buffer_size: 2048
+    batch_size: 64
+    hidden_sizes: [512, 256]
+    
+  large:  # 100x100 이상
+    buffer_size: 1024
+    batch_size: 32
+    hidden_sizes: [512, 256]
+
+# 하드웨어 설정
+hardware:
+  device: auto                  # auto, cuda, cpu
+  mixed_precision: false        # FP16 사용 여부
+  num_workers: 1                # 데이터 로더 워커 수
+  
+# 모니터링 설정
+monitoring:
+  log_interval: 1000            # 1000 스텝마다 로그
+  eval_interval: 10000          # 10000 스텝마다 평가
+  save_training_plot: true      # 학습 곡선 저장
+  track_explained_variance: true # 설명 분산 추적
+  
+# 벤치마크 설정
+benchmark:
+  warm_up_timesteps: 10000      # 성능 측정 전 워밍업
+  measurement_episodes: 5       # 실제 성능 측정용
+  timeout_seconds: 600          # 미로 해결 타임아웃
+  
+# 고급 설정
+advanced:
+  anneal_lr: true               # 학습률 감쇠
+  target_kl: 0.01               # KL 발산 제한 (조기 종료)
+  normalize_advantage: true     # 어드밴티지 정규화
+  clip_vloss: true              # 가치 손실 클리핑
+  
+# 디버깅 설정
+debug:
+  verbose: false
+  save_buffer_stats: false
+  profile_training: true
+  check_numerical_stability: true
