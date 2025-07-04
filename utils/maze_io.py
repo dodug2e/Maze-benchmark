@@ -53,7 +53,7 @@ class MazeDataLoader:
         subset_path = self.dataset_root / subset
         
         # PNG 이미지 로드
-        img_path = subset_path / "img" / f"{sample_id}.png"
+        img_path = subset_path / "images" / f"{sample_id}.png"
         if not img_path.exists():
             raise FileNotFoundError(f"Image not found: {img_path}")
         img = Image.open(img_path)
