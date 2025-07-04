@@ -470,3 +470,42 @@
 2025-07-04 17:44:29,609 - __main__ - INFO - 최종 벤치마크 리포트 생성 중...
 2025-07-04 17:44:29,617 - __main__ - INFO - 최종 리포트 생성 완료: output\results\benchmark_report.md
 2025-07-04 17:44:29,628 - __main__ - INFO - 전체 벤치마크 완료! 총 소요 시간: 99초
+2025-07-04 18:41:25,924 - utils.profiler - INFO - GPU 감지: NVIDIA GeForce RTX 3060 Laptop GPU
+2025-07-04 18:41:25,925 - __main__ - INFO - 전체 벤치마크 실행
+2025-07-04 18:41:25,926 - __main__ - INFO - 미로 벤치마크 시작
+2025-07-04 18:41:25,926 - __main__ - INFO - 설정: 2개 ML 모델
+2025-07-04 18:41:25,926 - __main__ - INFO - 시스템 요구사항 확인 중...
+2025-07-04 18:41:25,948 - __main__ - INFO - 초기 VRAM 사용률: 17.0%
+2025-07-04 18:41:25,999 - __main__ - INFO - 데이터셋 크기: train=10000, valid=8000, test=2000
+2025-07-04 18:41:26,000 - __main__ - INFO - 
+============================================================
+2025-07-04 18:41:26,000 - __main__ - INFO - ML 모델 학습 단계
+2025-07-04 18:41:26,001 - __main__ - INFO - ============================================================
+2025-07-04 18:41:26,001 - utils.profiler - INFO - 성능 측정 시작: ML 모델 학습
+2025-07-04 18:41:26,015 - utils.profiler - INFO - 성능 모니터링 시작
+2025-07-04 18:41:26,015 - scripts.train_ml_models - INFO - ML 모델 학습 파이프라인 시작
+2025-07-04 18:41:26,022 - scripts.train_ml_models - INFO - 초기 VRAM 사용률: 17.0%
+2025-07-04 18:41:26,047 - scripts.train_ml_models - INFO - train 샘플 수 제한: 2000
+2025-07-04 18:41:26,068 - scripts.train_ml_models - INFO - valid 샘플 수 제한: 500
+2025-07-04 18:41:26,074 - scripts.train_ml_models - INFO - test 샘플 수 제한: 200
+2025-07-04 18:41:26,074 - scripts.train_ml_models - INFO - 데이터 분할: train=2000, valid=500, test=200
+2025-07-04 18:41:26,074 - scripts.train_ml_models - INFO - 
+==================================================
+2025-07-04 18:41:26,074 - scripts.train_ml_models - INFO - CNN 모델 학습 시작
+2025-07-04 18:41:26,075 - scripts.train_ml_models - INFO - ==================================================
+2025-07-04 18:41:26,075 - utils.profiler - INFO - 성능 측정 시작: CNN 학습
+2025-07-04 18:41:26,138 - scripts.train_ml_models - INFO - CNN 파라미터: 6,878,020
+2025-07-04 18:41:26,139 - scripts.train_ml_models - INFO - 예상 메모리: 26.2MB
+2025-07-04 18:41:28,018 - algorithms.cnn_model - INFO - CNN 모델이 cuda에 로드되었습니다.
+2025-07-04 18:41:28,019 - algorithms.cnn_model - INFO - 모델 파라미터: 6,878,020
+2025-07-04 18:41:28,019 - algorithms.cnn_model - INFO - 예상 메모리: 26.2MB
+2025-07-04 18:41:39,681 - algorithms.cnn_model - INFO - Epoch 0, Batch 0, Loss: 1.390585, Acc: 12.50%
+2025-07-04 18:41:41,209 - algorithms.cnn_model - INFO - Epoch 0, Batch 100, Loss: 1.342171, Acc: 25.25%
+2025-07-04 18:41:42,721 - algorithms.cnn_model - INFO - Epoch 0, Batch 200, Loss: 1.356204, Acc: 25.25%
+2025-07-04 18:41:52,129 - scripts.train_ml_models - INFO - Epoch 1/10 - Train: 1.3944(24.80%) Val: 1.3922(24.00%) VRAM: 1751.7MB
+2025-07-04 18:41:52,223 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\best_cnn_model.pth
+2025-07-04 18:42:03,635 - algorithms.cnn_model - INFO - Epoch 1, Batch 0, Loss: 1.396408, Acc: 0.00%
+2025-07-04 18:42:05,168 - algorithms.cnn_model - INFO - Epoch 1, Batch 100, Loss: 1.403201, Acc: 24.38%
+2025-07-04 18:42:06,692 - algorithms.cnn_model - INFO - Epoch 1, Batch 200, Loss: 1.387577, Acc: 24.88%
+2025-07-04 18:42:16,186 - scripts.train_ml_models - INFO - Epoch 2/10 - Train: 1.3915(25.65%) Val: 1.3853(24.80%) VRAM: 1749.5MB
+2025-07-04 18:42:16,289 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\best_cnn_model.pth
