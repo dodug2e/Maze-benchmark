@@ -438,43 +438,48 @@ class MazeBenchmark:
     def _print_summary(self, hybrid_results: Dict):
         """콘솔에 요약 결과 출력"""
         print("\n" + "="*80)
-        print("🎯 벤치마크 완료 요약")
+        print("벤치마크 완료 요약")
         print("="*80)
         
         comparison = hybrid_results.get('comparison', {})
         
         if 'ranking' in comparison and comparison['ranking']:
-            print("\n🏆 알고리즘 순위:")
+            print("\n알고리즘 순위:")
             for i, rank_info in enumerate(comparison['ranking'][:3]):
-                medal = "🥇" if i == 0 else "🥈" if i == 1 else "🥉"
+                medal = "1등" if i == 0 else "2등" if i == 1 else "3등"
                 algo_names = {'aco': 'ACO', 'aco_cnn': 'ACO+CNN', 'aco_df': 'ACO+DeepForest'}
                 algo_name = algo_names.get(rank_info['algorithm'], rank_info['algorithm'])
                 
-                print(f"  {medal} {rank_info['rank']}위: {algo_name}")
+                print(f"  {medal}: {algo_name}")
                 print(f"      성공률: {rank_info['success_rate']:.1%}")
                 print(f"      평균 경로: {rank_info['avg_path_length']:.1f}")
         
-        # 주요 지표
-        if 'best_success_rate' in comparison:
+        # 주요 지표 (None 체크 추가)
+        if 'best_success_rate' in comparison and comparison['best_success_rate']['algorithm'] is not None:
             best_sr = comparison['best_success_rate']
-            print(f"\n✅ 최고 성공률: {best_sr['value']:.1%} ({best_sr['algorithm'].upper()})")
+            algo_name = best_sr['algorithm'].upper() if best_sr['algorithm'] else 'UNKNOWN'
+            print(f"\n최고 성공률: {best_sr['value']:.1%} ({algo_name})")
         
-        if 'fastest_execution' in comparison:
+        if 'fastest_execution' in comparison and comparison['fastest_execution']['algorithm'] is not None:
             fastest = comparison['fastest_execution']
-            print(f"⚡ 가장 빠른 실행: {fastest['value']:.3f}초 ({fastest['algorithm'].upper()})")
+            algo_name = fastest['algorithm'].upper() if fastest['algorithm'] else 'UNKNOWN'
+            print(f"가장 빠른 실행: {fastest['value']:.3f}초 ({algo_name})")
         
         # GPU 상태
-        gpu_status = self.profiler.check_rtx3060_limits()
-        print(f"\n💻 최종 VRAM 사용률: {gpu_status['vram_utilization_percent']:.1f}%")
+        try:
+            gpu_status = self.profiler.check_rtx3060_limits()
+            print(f"\n최종 VRAM 사용률: {gpu_status['vram_utilization_percent']:.1f}%")
+        except Exception as e:
+            print(f"\nGPU 상태 확인 실패: {e}")
         
-        print("\n📊 상세 결과는 output/results/ 디렉터리를 확인하세요!")
+        print("\n상세 결과는 output/results/ 디렉터리를 확인하세요!")
         print("="*80)
     
     def run_full_benchmark(self) -> Dict:
         """전체 벤치마크 실행"""
         self.benchmark_start_time = time.time()
         
-        logger.info("🌀 미로 벤치마크 시작")
+        logger.info("미로 벤치마크 시작")
         logger.info(f"설정: {len(self.config.get('models', []))}개 ML 모델")
         
         # 시스템 요구사항 확인
@@ -498,7 +503,11 @@ class MazeBenchmark:
             hybrid_results = self.run_hybrid_evaluation(ml_results)
             
             # 3단계: 최종 리포트 생성
-            self.generate_final_report(ml_results, hybrid_results)
+            try:
+                self.generate_final_report(ml_results, hybrid_results)
+            except Exception as e:
+                logger.error(f"리포트 생성 실패: {e}")
+                # 리포트 생성 실패해도 계속 진행
             
             # 전체 결과 반환
             full_results = {
@@ -513,15 +522,15 @@ class MazeBenchmark:
             with open(full_results_path, 'w', encoding='utf-8') as f:
                 json.dump(full_results, f, indent=2, ensure_ascii=False, default=str)
             
-            logger.info(f"🎉 전체 벤치마크 완료! 총 소요 시간: {full_results['total_time']:.0f}초")
+            logger.info(f"전체 벤치마크 완료! 총 소요 시간: {full_results['total_time']:.0f}초")
             
             return full_results
             
         except KeyboardInterrupt:
-            logger.info("❌ 사용자에 의해 벤치마크가 중단되었습니다.")
+            logger.info("사용자에 의해 벤치마크가 중단되었습니다.")
             return {}
         except Exception as e:
-            logger.error(f"❌ 벤치마크 실행 중 오류 발생: {e}")
+            logger.error(f"벤치마크 실행 중 오류 발생: {e}")
             raise
 
 
@@ -664,7 +673,7 @@ def main():
         profiler = get_profiler()
         gpu_status = profiler.check_rtx3060_limits()
         
-        print("🔧 GPU 상태 확인")
+        print("GPU 상태 확인")
         print("="*50)
         print(f"VRAM 사용률: {gpu_status['vram_utilization_percent']:.1f}%")
         print(f"현재 VRAM: {gpu_status['current_metrics']['vram_used_mb']:.1f}MB")
@@ -673,11 +682,11 @@ def main():
         print(f"전력 소비: {gpu_status['current_metrics']['power_watts']:.1f}W")
         
         if gpu_status['warnings']:
-            print("\n⚠️ 경고 사항:")
+            print("\n경고 사항:")
             for warning in gpu_status['warnings']:
                 print(f"  - {warning}")
         else:
-            print("\n✅ 모든 지표가 정상 범위입니다.")
+            print("\n모든 지표가 정상 범위입니다.")
         
         return
     
@@ -712,17 +721,17 @@ def main():
         
         # 빠른 테스트 모드
         if args.quick_test:
-            logger.info("🚀 빠른 테스트 모드 활성화")
+            logger.info("빠른 테스트 모드 활성화")
             benchmark.config = modify_config_for_quick_test(benchmark.config)
         
         # 실행 모드에 따른 처리
         if args.ml_only:
-            logger.info("🤖 ML 모델 학습만 실행")
+            logger.info("ML 모델 학습만 실행")
             results = benchmark.train_ml_models()
-            print(f"\n✅ ML 모델 학습 완료!")
+            print(f"\nML 모델 학습 완료!")
             
         elif args.eval_only:
-            logger.info("🎯 평가만 실행 (기존 모델 사용)")
+            logger.info("평가만 실행 (기존 모델 사용)")
             
             # 기존 모델 경로 설정
             ml_results = {
@@ -742,19 +751,22 @@ def main():
                 sys.exit(1)
             
             hybrid_results = benchmark.run_hybrid_evaluation(ml_results)
-            benchmark.generate_final_report(ml_results, hybrid_results)
-            print(f"\n✅ 평가 완료!")
+            try:
+                benchmark.generate_final_report(ml_results, hybrid_results)
+            except Exception as e:
+                logger.error(f"리포트 생성 실패: {e}")
+            print(f"\n평가 완료!")
             
         else:
             # 전체 벤치마크 실행
-            logger.info("🌀 전체 벤치마크 실행")
+            logger.info("전체 벤치마크 실행")
             results = benchmark.run_full_benchmark()
             
             if results:
-                print(f"\n🎉 벤치마크 완료!")
-                print(f"📁 결과 디렉터리: {benchmark.results_dir}")
+                print(f"\n벤치마크 완료!")
+                print(f"결과 디렉터리: {benchmark.results_dir}")
             else:
-                print(f"\n❌ 벤치마크 실패 또는 중단됨")
+                print(f"\n벤치마크 실패 또는 중단됨")
                 sys.exit(1)
         
     except KeyboardInterrupt:
