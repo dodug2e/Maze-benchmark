@@ -8,6 +8,7 @@ import inspect
 from pathlib import Path
 from typing import Dict, Type, Optional
 import logging
+from .dqn_solver import DQNSolver, create_dqn_solver
 
 logger = logging.getLogger(__name__)
 

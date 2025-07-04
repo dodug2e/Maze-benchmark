@@ -239,3 +239,234 @@
 2025-07-04 17:38:18,736 - __main__ - INFO - 최종 벤치마크 리포트 생성 중...
 2025-07-04 17:38:18,744 - __main__ - INFO - 최종 리포트 생성 완료: output\results\benchmark_report.md
 2025-07-04 17:38:18,753 - __main__ - INFO - 전체 벤치마크 완료! 총 소요 시간: 53초
+2025-07-04 17:42:50,385 - utils.profiler - INFO - GPU 감지: NVIDIA GeForce RTX 3060 Laptop GPU
+2025-07-04 17:42:50,386 - __main__ - INFO - 빠른 테스트 모드 활성화
+2025-07-04 17:42:50,386 - __main__ - INFO - 전체 벤치마크 실행
+2025-07-04 17:42:50,386 - __main__ - INFO - 미로 벤치마크 시작
+2025-07-04 17:42:50,387 - __main__ - INFO - 설정: 2개 ML 모델
+2025-07-04 17:42:50,387 - __main__ - INFO - 시스템 요구사항 확인 중...
+2025-07-04 17:42:50,409 - __main__ - INFO - 초기 VRAM 사용률: 15.2%
+2025-07-04 17:42:50,461 - __main__ - INFO - 데이터셋 크기: train=10000, valid=8000, test=2000
+2025-07-04 17:42:50,461 - __main__ - INFO - 
+============================================================
+2025-07-04 17:42:50,462 - __main__ - INFO - ML 모델 학습 단계
+2025-07-04 17:42:50,462 - __main__ - INFO - ============================================================
+2025-07-04 17:42:50,463 - utils.profiler - INFO - 성능 측정 시작: ML 모델 학습
+2025-07-04 17:42:50,477 - utils.profiler - INFO - 성능 모니터링 시작
+2025-07-04 17:42:50,477 - scripts.train_ml_models - INFO - ML 모델 학습 파이프라인 시작
+2025-07-04 17:42:50,483 - scripts.train_ml_models - INFO - 초기 VRAM 사용률: 15.1%
+2025-07-04 17:42:50,509 - scripts.train_ml_models - INFO - train 샘플 수 제한: 2000
+2025-07-04 17:42:50,528 - scripts.train_ml_models - INFO - valid 샘플 수 제한: 500
+2025-07-04 17:42:50,534 - scripts.train_ml_models - INFO - test 샘플 수 제한: 200
+2025-07-04 17:42:50,534 - scripts.train_ml_models - INFO - 데이터 분할: train=2000, valid=500, test=200
+2025-07-04 17:42:50,535 - scripts.train_ml_models - INFO - 
+==================================================
+2025-07-04 17:42:50,535 - scripts.train_ml_models - INFO - CNN 모델 학습 시작
+2025-07-04 17:42:50,535 - scripts.train_ml_models - INFO - ==================================================
+2025-07-04 17:42:50,535 - utils.profiler - INFO - 성능 측정 시작: CNN 학습
+2025-07-04 17:42:50,599 - scripts.train_ml_models - INFO - CNN 파라미터: 6,878,020
+2025-07-04 17:42:50,600 - scripts.train_ml_models - INFO - 예상 메모리: 26.2MB
+2025-07-04 17:42:52,593 - algorithms.cnn_model - INFO - CNN 모델이 cuda에 로드되었습니다.
+2025-07-04 17:42:52,594 - algorithms.cnn_model - INFO - 모델 파라미터: 6,878,020
+2025-07-04 17:42:52,594 - algorithms.cnn_model - INFO - 예상 메모리: 26.2MB
+2025-07-04 17:43:04,231 - algorithms.cnn_model - INFO - Epoch 0, Batch 0, Loss: 1.390634, Acc: 0.00%
+2025-07-04 17:43:05,286 - algorithms.cnn_model - INFO - Epoch 0, Batch 100, Loss: 1.387599, Acc: 22.52%
+2025-07-04 17:43:06,246 - algorithms.cnn_model - INFO - Epoch 0, Batch 200, Loss: 1.312114, Acc: 24.63%
+2025-07-04 17:43:07,204 - algorithms.cnn_model - INFO - Epoch 0, Batch 300, Loss: 1.368570, Acc: 24.50%
+2025-07-04 17:43:08,166 - algorithms.cnn_model - INFO - Epoch 0, Batch 400, Loss: 1.378206, Acc: 24.06%
+2025-07-04 17:43:17,829 - scripts.train_ml_models - INFO - Epoch 1/2 - Train: 1.3936(24.60%) Val: 1.3861(26.00%) VRAM: 1478.4MB
+2025-07-04 17:43:17,923 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\best_cnn_model.pth
+2025-07-04 17:43:29,347 - algorithms.cnn_model - INFO - Epoch 1, Batch 0, Loss: 1.394531, Acc: 0.00%
+2025-07-04 17:43:30,449 - algorithms.cnn_model - INFO - Epoch 1, Batch 100, Loss: 1.382455, Acc: 25.00%
+2025-07-04 17:43:31,403 - algorithms.cnn_model - INFO - Epoch 1, Batch 200, Loss: 1.392069, Acc: 23.63%
+2025-07-04 17:43:32,351 - algorithms.cnn_model - INFO - Epoch 1, Batch 300, Loss: 1.373966, Acc: 25.25%
+2025-07-04 17:43:33,309 - algorithms.cnn_model - INFO - Epoch 1, Batch 400, Loss: 1.394214, Acc: 24.44%
+2025-07-04 17:43:43,091 - scripts.train_ml_models - INFO - Epoch 2/2 - Train: 1.3867(23.75%) Val: 1.3861(25.20%) VRAM: 1478.6MB
+2025-07-04 17:43:43,180 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\final_cnn_model.pth
+2025-07-04 17:43:43,180 - scripts.train_ml_models - INFO - CNN 학습 완료 - 최고 검증 정확도: 26.0000
+2025-07-04 17:43:43,186 - utils.profiler - INFO - 성능 측정 완료: CNN 학습
+2025-07-04 17:43:43,187 - utils.profiler - INFO -   실행 시간: 52.64초
+2025-07-04 17:43:43,187 - utils.profiler - INFO -   VRAM 피크: 1484.5MB
+2025-07-04 17:43:43,187 - utils.profiler - INFO -   최종 VRAM: 1474.5MB
+2025-07-04 17:43:43,189 - scripts.train_ml_models - INFO - 
+==================================================
+2025-07-04 17:43:43,190 - scripts.train_ml_models - INFO - Deep Forest 모델 학습 시작
+2025-07-04 17:43:43,190 - scripts.train_ml_models - INFO - ==================================================
+2025-07-04 17:43:43,190 - utils.profiler - INFO - 성능 측정 시작: Deep Forest 학습
+2025-07-04 17:43:43,197 - algorithms.deep_forest_model - INFO - Deep Forest 학습 시작
+2025-07-04 17:43:43,197 - algorithms.deep_forest_model - INFO - 학습 데이터 준비 중...
+2025-07-04 17:43:43,197 - algorithms.deep_forest_model - INFO - Deep Forest 학습 데이터 준비: 2000개 샘플
+2025-07-04 17:43:43,197 - algorithms.deep_forest_model - INFO - 처리 중: 0/2000
+2025-07-04 17:43:45,375 - algorithms.deep_forest_model - INFO - 처리 중: 100/2000
+2025-07-04 17:43:47,706 - algorithms.deep_forest_model - INFO - 처리 중: 200/2000
+2025-07-04 17:43:49,608 - algorithms.deep_forest_model - INFO - 처리 중: 300/2000
+2025-07-04 17:43:51,357 - algorithms.deep_forest_model - INFO - 처리 중: 400/2000
+2025-07-04 17:43:53,318 - algorithms.deep_forest_model - INFO - 처리 중: 500/2000
+2025-07-04 17:43:55,363 - algorithms.deep_forest_model - INFO - 처리 중: 600/2000
+2025-07-04 17:43:57,526 - algorithms.deep_forest_model - INFO - 처리 중: 700/2000
+2025-07-04 17:43:59,561 - algorithms.deep_forest_model - INFO - 처리 중: 800/2000
+2025-07-04 17:44:01,571 - algorithms.deep_forest_model - INFO - 처리 중: 900/2000
+2025-07-04 17:44:03,617 - algorithms.deep_forest_model - INFO - 처리 중: 1000/2000
+2025-07-04 17:44:05,579 - algorithms.deep_forest_model - INFO - 처리 중: 1100/2000
+2025-07-04 17:44:07,483 - algorithms.deep_forest_model - INFO - 처리 중: 1200/2000
+2025-07-04 17:44:09,476 - algorithms.deep_forest_model - INFO - 처리 중: 1300/2000
+2025-07-04 17:44:11,601 - algorithms.deep_forest_model - INFO - 처리 중: 1400/2000
+2025-07-04 17:44:13,926 - algorithms.deep_forest_model - INFO - 처리 중: 1500/2000
+2025-07-04 17:44:15,916 - algorithms.deep_forest_model - INFO - 처리 중: 1600/2000
+2025-07-04 17:44:17,809 - algorithms.deep_forest_model - INFO - 처리 중: 1700/2000
+2025-07-04 17:44:19,791 - algorithms.deep_forest_model - INFO - 처리 중: 1800/2000
+2025-07-04 17:44:21,758 - algorithms.deep_forest_model - INFO - 처리 중: 1900/2000
+2025-07-04 17:44:23,735 - algorithms.deep_forest_model - INFO - 미로 크기 분포: 76가지 크기
+2025-07-04 17:44:23,736 - algorithms.deep_forest_model - INFO -   51x51: 26개
+2025-07-04 17:44:23,736 - algorithms.deep_forest_model - INFO -   53x53: 29개
+2025-07-04 17:44:23,736 - algorithms.deep_forest_model - INFO -   55x55: 27개
+2025-07-04 17:44:23,736 - algorithms.deep_forest_model - INFO -   57x57: 24개
+2025-07-04 17:44:23,736 - algorithms.deep_forest_model - INFO -   59x59: 27개
+2025-07-04 17:44:23,737 - algorithms.deep_forest_model - INFO -   61x61: 15개
+2025-07-04 17:44:23,737 - algorithms.deep_forest_model - INFO -   63x63: 23개
+2025-07-04 17:44:23,737 - algorithms.deep_forest_model - INFO -   65x65: 22개
+2025-07-04 17:44:23,737 - algorithms.deep_forest_model - INFO -   67x67: 23개
+2025-07-04 17:44:23,737 - algorithms.deep_forest_model - INFO -   69x69: 27개
+2025-07-04 17:44:23,738 - algorithms.deep_forest_model - INFO -   71x71: 23개
+2025-07-04 17:44:23,738 - algorithms.deep_forest_model - INFO -   73x73: 23개
+2025-07-04 17:44:23,738 - algorithms.deep_forest_model - INFO -   75x75: 19개
+2025-07-04 17:44:23,738 - algorithms.deep_forest_model - INFO -   77x77: 26개
+2025-07-04 17:44:23,738 - algorithms.deep_forest_model - INFO -   79x79: 25개
+2025-07-04 17:44:23,739 - algorithms.deep_forest_model - INFO -   81x81: 22개
+2025-07-04 17:44:23,739 - algorithms.deep_forest_model - INFO -   83x83: 30개
+2025-07-04 17:44:23,739 - algorithms.deep_forest_model - INFO -   85x85: 20개
+2025-07-04 17:44:23,739 - algorithms.deep_forest_model - INFO -   87x87: 24개
+2025-07-04 17:44:23,740 - algorithms.deep_forest_model - INFO -   89x89: 23개
+2025-07-04 17:44:23,740 - algorithms.deep_forest_model - INFO -   91x91: 27개
+2025-07-04 17:44:23,740 - algorithms.deep_forest_model - INFO -   93x93: 26개
+2025-07-04 17:44:23,740 - algorithms.deep_forest_model - INFO -   95x95: 32개
+2025-07-04 17:44:23,740 - algorithms.deep_forest_model - INFO -   97x97: 35개
+2025-07-04 17:44:23,740 - algorithms.deep_forest_model - INFO -   99x99: 41개
+2025-07-04 17:44:23,742 - algorithms.deep_forest_model - INFO -   101x101: 32개
+2025-07-04 17:44:23,742 - algorithms.deep_forest_model - INFO -   103x103: 25개
+2025-07-04 17:44:23,742 - algorithms.deep_forest_model - INFO -   105x105: 30개
+2025-07-04 17:44:23,742 - algorithms.deep_forest_model - INFO -   107x107: 32개
+2025-07-04 17:44:23,742 - algorithms.deep_forest_model - INFO -   109x109: 28개
+2025-07-04 17:44:23,743 - algorithms.deep_forest_model - INFO -   111x111: 19개
+2025-07-04 17:44:23,743 - algorithms.deep_forest_model - INFO -   113x113: 19개
+2025-07-04 17:44:23,743 - algorithms.deep_forest_model - INFO -   115x115: 31개
+2025-07-04 17:44:23,743 - algorithms.deep_forest_model - INFO -   117x117: 21개
+2025-07-04 17:44:23,743 - algorithms.deep_forest_model - INFO -   119x119: 19개
+2025-07-04 17:44:23,743 - algorithms.deep_forest_model - INFO -   121x121: 35개
+2025-07-04 17:44:23,744 - algorithms.deep_forest_model - INFO -   123x123: 23개
+2025-07-04 17:44:23,744 - algorithms.deep_forest_model - INFO -   125x125: 22개
+2025-07-04 17:44:23,744 - algorithms.deep_forest_model - INFO -   127x127: 13개
+2025-07-04 17:44:23,744 - algorithms.deep_forest_model - INFO -   129x129: 30개
+2025-07-04 17:44:23,744 - algorithms.deep_forest_model - INFO -   131x131: 27개
+2025-07-04 17:44:23,744 - algorithms.deep_forest_model - INFO -   133x133: 29개
+2025-07-04 17:44:23,744 - algorithms.deep_forest_model - INFO -   135x135: 32개
+2025-07-04 17:44:23,745 - algorithms.deep_forest_model - INFO -   137x137: 36개
+2025-07-04 17:44:23,745 - algorithms.deep_forest_model - INFO -   139x139: 27개
+2025-07-04 17:44:23,745 - algorithms.deep_forest_model - INFO -   141x141: 19개
+2025-07-04 17:44:23,745 - algorithms.deep_forest_model - INFO -   143x143: 30개
+2025-07-04 17:44:23,745 - algorithms.deep_forest_model - INFO -   145x145: 21개
+2025-07-04 17:44:23,745 - algorithms.deep_forest_model - INFO -   147x147: 35개
+2025-07-04 17:44:23,745 - algorithms.deep_forest_model - INFO -   149x149: 30개
+2025-07-04 17:44:23,746 - algorithms.deep_forest_model - INFO -   151x151: 15개
+2025-07-04 17:44:23,746 - algorithms.deep_forest_model - INFO -   153x153: 27개
+2025-07-04 17:44:23,746 - algorithms.deep_forest_model - INFO -   155x155: 41개
+2025-07-04 17:44:23,746 - algorithms.deep_forest_model - INFO -   157x157: 25개
+2025-07-04 17:44:23,746 - algorithms.deep_forest_model - INFO -   159x159: 26개
+2025-07-04 17:44:23,746 - algorithms.deep_forest_model - INFO -   161x161: 27개
+2025-07-04 17:44:23,746 - algorithms.deep_forest_model - INFO -   163x163: 27개
+2025-07-04 17:44:23,746 - algorithms.deep_forest_model - INFO -   165x165: 34개
+2025-07-04 17:44:23,747 - algorithms.deep_forest_model - INFO -   167x167: 22개
+2025-07-04 17:44:23,747 - algorithms.deep_forest_model - INFO -   169x169: 25개
+2025-07-04 17:44:23,747 - algorithms.deep_forest_model - INFO -   171x171: 29개
+2025-07-04 17:44:23,747 - algorithms.deep_forest_model - INFO -   173x173: 24개
+2025-07-04 17:44:23,747 - algorithms.deep_forest_model - INFO -   175x175: 29개
+2025-07-04 17:44:23,748 - algorithms.deep_forest_model - INFO -   177x177: 31개
+2025-07-04 17:44:23,748 - algorithms.deep_forest_model - INFO -   179x179: 21개
+2025-07-04 17:44:23,748 - algorithms.deep_forest_model - INFO -   181x181: 23개
+2025-07-04 17:44:23,748 - algorithms.deep_forest_model - INFO -   183x183: 22개
+2025-07-04 17:44:23,748 - algorithms.deep_forest_model - INFO -   185x185: 29개
+2025-07-04 17:44:23,748 - algorithms.deep_forest_model - INFO -   187x187: 23개
+2025-07-04 17:44:23,748 - algorithms.deep_forest_model - INFO -   189x189: 25개
+2025-07-04 17:44:23,748 - algorithms.deep_forest_model - INFO -   191x191: 28개
+2025-07-04 17:44:23,748 - algorithms.deep_forest_model - INFO -   193x193: 25개
+2025-07-04 17:44:23,750 - algorithms.deep_forest_model - INFO -   195x195: 36개
+2025-07-04 17:44:23,750 - algorithms.deep_forest_model - INFO -   197x197: 26개
+2025-07-04 17:44:23,750 - algorithms.deep_forest_model - INFO -   199x199: 32개
+2025-07-04 17:44:23,750 - algorithms.deep_forest_model - INFO -   201x201: 24개
+2025-07-04 17:44:23,757 - utils.profiler - INFO - 성능 측정 완료: Deep Forest 학습
+2025-07-04 17:44:23,757 - utils.profiler - INFO -   실행 시간: 40.55초
+2025-07-04 17:44:23,757 - utils.profiler - INFO -   VRAM 피크: 1484.5MB
+2025-07-04 17:44:23,758 - utils.profiler - INFO -   최종 VRAM: 1299.2MB
+2025-07-04 17:44:23,758 - scripts.train_ml_models - ERROR - Deep Forest 학습 실패: Cannot cast array data from dtype('float64') to dtype('int64') according to the rule 'safe'
+2025-07-04 17:44:23,769 - scripts.train_ml_models - INFO - 최종 VRAM 사용률: 21.1%
+2025-07-04 17:44:23,769 - scripts.train_ml_models - INFO - 학습 완료 - 결과 저장: output\training_results.json
+2025-07-04 17:44:23,770 - scripts.train_ml_models - INFO - 리포트 생성 완료: output\training_report.md
+2025-07-04 17:44:24,191 - utils.profiler - INFO - 성능 모니터링 중지
+2025-07-04 17:44:24,191 - utils.profiler - INFO - 성능 측정 완료: ML 모델 학습
+2025-07-04 17:44:24,192 - utils.profiler - INFO -   실행 시간: 93.30초
+2025-07-04 17:44:24,192 - utils.profiler - INFO -   VRAM 피크: 1484.5MB
+2025-07-04 17:44:24,192 - utils.profiler - INFO -   최종 VRAM: 1299.2MB
+2025-07-04 17:44:24,194 - __main__ - INFO - 
+============================================================
+2025-07-04 17:44:24,194 - __main__ - INFO - 하이브리드 알고리즘 평가 단계
+2025-07-04 17:44:24,194 - __main__ - INFO - ============================================================
+2025-07-04 17:44:24,200 - __main__ - INFO - 평가할 미로 개수: 5
+2025-07-04 17:44:24,200 - __main__ - INFO - 
+미로 1/5 평가 중... (ID: maze_000000)
+2025-07-04 17:44:24,304 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:44:24,306 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:44:24,310 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:24,352 - algorithms.hybrid_aco - INFO - 반복 0: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:24,745 - algorithms.hybrid_aco - INFO - 반복 10: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:25,106 - algorithms.hybrid_aco - INFO - 기본 ACO 완료: 최단 경로 길이 inf
+2025-07-04 17:44:25,106 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:44:25,136 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:25,276 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: probabilities do not sum to 1
+2025-07-04 17:44:25,276 - __main__ - INFO - 
+미로 2/5 평가 중... (ID: maze_000001)
+2025-07-04 17:44:25,360 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:44:25,360 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:44:25,363 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:25,402 - algorithms.hybrid_aco - INFO - 반복 0: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:25,789 - algorithms.hybrid_aco - INFO - 반복 10: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:26,138 - algorithms.hybrid_aco - INFO - 기본 ACO 완료: 최단 경로 길이 inf
+2025-07-04 17:44:26,138 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:44:26,165 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:26,273 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: probabilities do not sum to 1
+2025-07-04 17:44:26,274 - __main__ - INFO - 
+미로 3/5 평가 중... (ID: maze_000002)
+2025-07-04 17:44:26,359 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:44:26,360 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:44:26,367 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:26,407 - algorithms.hybrid_aco - INFO - 반복 0: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:26,791 - algorithms.hybrid_aco - INFO - 반복 10: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:27,140 - algorithms.hybrid_aco - INFO - 기본 ACO 완료: 최단 경로 길이 inf
+2025-07-04 17:44:27,140 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:44:27,170 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:27,497 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: probabilities do not sum to 1
+2025-07-04 17:44:27,497 - __main__ - INFO - 
+미로 4/5 평가 중... (ID: maze_000003)
+2025-07-04 17:44:27,585 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:44:27,586 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:44:27,592 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:27,632 - algorithms.hybrid_aco - INFO - 반복 0: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:28,020 - algorithms.hybrid_aco - INFO - 반복 10: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:28,377 - algorithms.hybrid_aco - INFO - 기본 ACO 완료: 최단 경로 길이 inf
+2025-07-04 17:44:28,379 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:44:28,396 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:28,676 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: probabilities do not sum to 1
+2025-07-04 17:44:28,676 - __main__ - INFO - 
+미로 5/5 평가 중... (ID: maze_000004)
+2025-07-04 17:44:28,764 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:44:28,764 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:44:28,768 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:28,809 - algorithms.hybrid_aco - INFO - 반복 0: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:29,204 - algorithms.hybrid_aco - INFO - 반복 10: 성공한 개미 0마리, 최단 거리: inf
+2025-07-04 17:44:29,560 - algorithms.hybrid_aco - INFO - 기본 ACO 완료: 최단 경로 길이 inf
+2025-07-04 17:44:29,562 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:44:29,574 - algorithms.hybrid_aco - INFO - 기본 ACO 시작: 10마리 개미, 20회 반복
+2025-07-04 17:44:29,606 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: probabilities do not sum to 1
+2025-07-04 17:44:29,609 - __main__ - INFO - 하이브리드 평가 완료 - 결과 저장: output\results\hybrid_evaluation.json
+2025-07-04 17:44:29,609 - __main__ - INFO - 최종 벤치마크 리포트 생성 중...
+2025-07-04 17:44:29,617 - __main__ - INFO - 최종 리포트 생성 완료: output\results\benchmark_report.md
+2025-07-04 17:44:29,628 - __main__ - INFO - 전체 벤치마크 완료! 총 소요 시간: 99초

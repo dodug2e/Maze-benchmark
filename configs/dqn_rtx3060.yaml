@@ -1,0 +1,70 @@
+# DQN RTX 3060 최적화 설정
+# VRAM 6GB 제한을 고려한 하이퍼파라미터
+
+# 기본 학습 설정
+training:
+  episodes: 2000
+  max_steps: 1000
+  save_interval: 500
+  
+# 신경망 설정  
+network:
+  learning_rate: 0.001
+  gamma: 0.99
+  hidden_sizes: [512, 256, 128]
+  dropout: 0.1
+
+# 강화학습 설정
+rl:
+  epsilon_start: 1.0
+  epsilon_end: 0.01
+  epsilon_decay: 0.995
+  target_update: 1000
+  
+# 메모리 최적화 (RTX 3060 6GB 고려)
+memory:
+  buffer_size: 8000      # 6GB VRAM에 맞게 축소
+  batch_size: 16         # 메모리 사용량 최적화
+  
+# 크기별 동적 설정
+size_configs:
+  small:  # 50x50 이하
+    batch_size: 32
+    buffer_size: 10000
+    hidden_sizes: [256, 128, 64]
+    
+  medium: # 50x50 ~ 100x100  
+    batch_size: 16
+    buffer_size: 8000
+    hidden_sizes: [512, 256, 128]
+    
+  large:  # 100x100 이상
+    batch_size: 8
+    buffer_size: 5000
+    hidden_sizes: [512, 256]
+
+# 하드웨어 설정
+hardware:
+  device: auto           # auto, cuda, cpu
+  mixed_precision: false # RTX 3060에서는 FP16 사용 안 함
+  gradient_clipping: 1.0
+  
+# 모니터링 설정
+monitoring:
+  log_interval: 100      # 100 에피소드마다 로그
+  save_training_plot: true
+  track_vram: true
+  track_temperature: true
+  
+# 벤치마크 설정
+benchmark:
+  warm_up_episodes: 100  # 성능 측정 전 워밍업
+  measurement_episodes: 10 # 실제 성능 측정용
+  timeout_seconds: 300   # 미로 해결 타임아웃
+  
+# 디버깅 설정
+debug:
+  verbose: false
+  save_replay_buffer: false
+  save_network_weights: false
+  profile_memory: true
