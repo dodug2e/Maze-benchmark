@@ -8,7 +8,7 @@ based on *normalised Manhattan‑distance to goal* (option *"dist"*).
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Callable, Tuple, List
+from typing import Callable, Tuple, List, Optional
 
 import numpy as np
 import torch
