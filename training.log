@@ -1,0 +1,80 @@
+2025-07-04 19:17:38,849 - utils.profiler - INFO - GPU 감지: NVIDIA GeForce RTX 3060 Laptop GPU
+2025-07-04 19:17:38,884 - __main__ - INFO - ML 모델 학습 파이프라인 시작
+2025-07-04 19:17:38,967 - __main__ - INFO - 초기 VRAM 사용률: 14.7%
+2025-07-04 19:17:38,993 - __main__ - INFO - train 샘플 수 제한: 2000
+2025-07-04 19:17:39,015 - __main__ - INFO - valid 샘플 수 제한: 500
+2025-07-04 19:17:39,022 - __main__ - INFO - test 샘플 수 제한: 200
+2025-07-04 19:17:39,022 - __main__ - INFO - 데이터 분할: train=2000, valid=500, test=200
+2025-07-04 19:17:39,022 - __main__ - INFO - 
+==================================================
+2025-07-04 19:17:39,022 - __main__ - INFO - CNN 모델 학습 시작
+2025-07-04 19:17:39,022 - __main__ - INFO - ==================================================
+2025-07-04 19:17:39,023 - utils.profiler - INFO - 성능 측정 시작: CNN 학습
+2025-07-04 19:17:39,037 - utils.profiler - INFO - 성능 모니터링 시작
+2025-07-04 19:17:39,094 - __main__ - INFO - CNN 파라미터: 6,878,020
+2025-07-04 19:17:39,095 - __main__ - INFO - 예상 메모리: 26.2MB
+2025-07-04 19:17:40,502 - algorithms.cnn_model - INFO - CNN 모델이 cuda에 로드되었습니다.
+2025-07-04 19:17:40,502 - algorithms.cnn_model - INFO - 모델 파라미터: 6,878,020
+2025-07-04 19:17:40,502 - algorithms.cnn_model - INFO - 예상 메모리: 26.2MB
+2025-07-04 19:17:47,234 - algorithms.cnn_model - INFO - Epoch 0, Batch 0, Loss: 1.384765, Acc: 37.50%
+2025-07-04 19:17:48,806 - algorithms.cnn_model - INFO - Epoch 0, Batch 100, Loss: 1.424283, Acc: 26.24%
+2025-07-04 19:17:50,368 - algorithms.cnn_model - INFO - Epoch 0, Batch 200, Loss: 1.265188, Acc: 26.62%
+2025-07-04 19:17:56,154 - __main__ - INFO - Epoch 1/50 - Train: 1.4042(26.00%) Val: 1.3870(21.80%) VRAM: 1614.9MB
+2025-07-04 19:17:56,253 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\best_cnn_model.pth
+2025-07-04 19:18:02,813 - algorithms.cnn_model - INFO - Epoch 1, Batch 0, Loss: 1.389598, Acc: 25.00%
+2025-07-04 19:18:04,386 - algorithms.cnn_model - INFO - Epoch 1, Batch 100, Loss: 1.384660, Acc: 26.11%
+2025-07-04 19:18:05,940 - algorithms.cnn_model - INFO - Epoch 1, Batch 200, Loss: 1.376773, Acc: 26.62%
+2025-07-04 19:18:11,754 - __main__ - INFO - Epoch 2/50 - Train: 1.3861(25.80%) Val: 1.3863(29.00%) VRAM: 1612.6MB
+2025-07-04 19:18:11,850 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\best_cnn_model.pth
+2025-07-04 19:18:18,396 - algorithms.cnn_model - INFO - Epoch 2, Batch 0, Loss: 1.387488, Acc: 0.00%
+2025-07-04 19:18:19,962 - algorithms.cnn_model - INFO - Epoch 2, Batch 100, Loss: 1.390849, Acc: 23.76%
+2025-07-04 19:18:21,522 - algorithms.cnn_model - INFO - Epoch 2, Batch 200, Loss: 1.399957, Acc: 24.94%
+2025-07-04 19:18:27,343 - __main__ - INFO - Epoch 3/50 - Train: 1.3868(24.55%) Val: 1.3892(21.60%) VRAM: 1608.1MB
+2025-07-04 19:18:33,799 - algorithms.cnn_model - INFO - Epoch 3, Batch 0, Loss: 1.376730, Acc: 50.00%
+2025-07-04 19:18:35,380 - algorithms.cnn_model - INFO - Epoch 3, Batch 100, Loss: 1.384270, Acc: 26.49%
+2025-07-04 19:18:36,938 - algorithms.cnn_model - INFO - Epoch 3, Batch 200, Loss: 1.389170, Acc: 24.94%
+2025-07-04 19:18:42,775 - __main__ - INFO - Epoch 4/50 - Train: 1.3865(25.25%) Val: 1.3845(27.40%) VRAM: 1612.6MB
+2025-07-04 19:18:49,128 - algorithms.cnn_model - INFO - Epoch 4, Batch 0, Loss: 1.398250, Acc: 0.00%
+2025-07-04 19:18:50,721 - algorithms.cnn_model - INFO - Epoch 4, Batch 100, Loss: 1.383968, Acc: 25.25%
+2025-07-04 19:18:52,287 - algorithms.cnn_model - INFO - Epoch 4, Batch 200, Loss: 1.377442, Acc: 24.50%
+2025-07-04 19:18:58,046 - __main__ - INFO - Epoch 5/50 - Train: 1.3865(24.30%) Val: 1.3877(23.00%) VRAM: 1612.6MB
+2025-07-04 19:19:04,587 - algorithms.cnn_model - INFO - Epoch 5, Batch 0, Loss: 1.386272, Acc: 50.00%
+2025-07-04 19:19:06,167 - algorithms.cnn_model - INFO - Epoch 5, Batch 100, Loss: 1.387560, Acc: 24.50%
+2025-07-04 19:19:07,729 - algorithms.cnn_model - INFO - Epoch 5, Batch 200, Loss: 1.385644, Acc: 25.00%
+2025-07-04 19:19:13,629 - __main__ - INFO - Epoch 6/50 - Train: 1.3867(24.45%) Val: 1.3868(26.20%) VRAM: 1612.6MB
+2025-07-04 19:19:20,180 - algorithms.cnn_model - INFO - Epoch 6, Batch 0, Loss: 1.402830, Acc: 0.00%
+2025-07-04 19:19:21,770 - algorithms.cnn_model - INFO - Epoch 6, Batch 100, Loss: 1.381247, Acc: 23.89%
+2025-07-04 19:19:23,337 - algorithms.cnn_model - INFO - Epoch 6, Batch 200, Loss: 1.380999, Acc: 25.75%
+2025-07-04 19:19:29,116 - __main__ - INFO - Epoch 7/50 - Train: 1.3864(25.85%) Val: 1.3880(24.20%) VRAM: 1612.6MB
+2025-07-04 19:19:35,568 - algorithms.cnn_model - INFO - Epoch 7, Batch 0, Loss: 1.404203, Acc: 0.00%
+2025-07-04 19:19:37,150 - algorithms.cnn_model - INFO - Epoch 7, Batch 100, Loss: 1.396694, Acc: 23.76%
+2025-07-04 19:19:38,707 - algorithms.cnn_model - INFO - Epoch 7, Batch 200, Loss: 1.394825, Acc: 24.81%
+2025-07-04 19:19:44,575 - __main__ - INFO - Epoch 8/50 - Train: 1.3864(24.95%) Val: 1.3849(27.80%) VRAM: 1612.6MB
+2025-07-04 19:19:50,930 - algorithms.cnn_model - INFO - Epoch 8, Batch 0, Loss: 1.386938, Acc: 25.00%
+2025-07-04 19:19:52,687 - algorithms.cnn_model - INFO - Epoch 8, Batch 100, Loss: 1.383263, Acc: 22.15%
+2025-07-04 19:19:54,253 - algorithms.cnn_model - INFO - Epoch 8, Batch 200, Loss: 1.398836, Acc: 24.32%
+2025-07-04 19:20:00,197 - __main__ - INFO - Epoch 9/50 - Train: 1.3873(24.45%) Val: 1.3863(26.60%) VRAM: 1612.2MB
+2025-07-04 19:20:06,554 - algorithms.cnn_model - INFO - Epoch 9, Batch 0, Loss: 1.387690, Acc: 12.50%
+2025-07-04 19:20:08,250 - algorithms.cnn_model - INFO - Epoch 9, Batch 100, Loss: 1.383021, Acc: 23.39%
+2025-07-04 19:20:09,787 - algorithms.cnn_model - INFO - Epoch 9, Batch 200, Loss: 1.369488, Acc: 25.62%
+2025-07-04 19:20:15,664 - __main__ - INFO - Epoch 10/50 - Train: 1.3866(25.55%) Val: 1.3866(26.00%) VRAM: 1612.6MB
+2025-07-04 19:20:22,001 - algorithms.cnn_model - INFO - Epoch 10, Batch 0, Loss: 1.386649, Acc: 12.50%
+2025-07-04 19:20:23,652 - algorithms.cnn_model - INFO - Epoch 10, Batch 100, Loss: 1.399837, Acc: 25.99%
+2025-07-04 19:20:25,187 - algorithms.cnn_model - INFO - Epoch 10, Batch 200, Loss: 1.386068, Acc: 24.25%
+2025-07-04 19:20:31,113 - __main__ - INFO - Epoch 11/50 - Train: 1.3869(25.25%) Val: 1.3865(25.00%) VRAM: 1617.6MB
+2025-07-04 19:20:37,596 - algorithms.cnn_model - INFO - Epoch 11, Batch 0, Loss: 1.379536, Acc: 37.50%
+2025-07-04 19:20:39,286 - algorithms.cnn_model - INFO - Epoch 11, Batch 100, Loss: 1.389609, Acc: 24.01%
+2025-07-04 19:20:40,869 - algorithms.cnn_model - INFO - Epoch 11, Batch 200, Loss: 1.379875, Acc: 26.06%
+2025-07-04 19:20:46,640 - __main__ - INFO - Epoch 12/50 - Train: 1.3866(25.75%) Val: 1.3875(23.20%) VRAM: 1510.6MB
+2025-07-04 19:20:53,293 - algorithms.cnn_model - INFO - Epoch 12, Batch 0, Loss: 1.391313, Acc: 12.50%
+2025-07-04 19:20:54,864 - algorithms.cnn_model - INFO - Epoch 12, Batch 100, Loss: 1.393443, Acc: 24.26%
+2025-07-04 19:20:56,396 - algorithms.cnn_model - INFO - Epoch 12, Batch 200, Loss: 1.382753, Acc: 24.56%
+2025-07-04 19:21:02,235 - __main__ - INFO - Epoch 13/50 - Train: 1.3867(24.80%) Val: 1.3849(28.80%) VRAM: 1596.8MB
+2025-07-04 19:21:08,738 - algorithms.cnn_model - INFO - Epoch 13, Batch 0, Loss: 1.388081, Acc: 12.50%
+2025-07-04 19:21:10,290 - algorithms.cnn_model - INFO - Epoch 13, Batch 100, Loss: 1.388227, Acc: 22.52%
+2025-07-04 19:21:11,824 - algorithms.cnn_model - INFO - Epoch 13, Batch 200, Loss: 1.384956, Acc: 24.19%
+2025-07-04 19:21:17,740 - __main__ - INFO - Epoch 14/50 - Train: 1.3866(24.20%) Val: 1.3864(26.40%) VRAM: 1525.8MB
+2025-07-04 19:21:24,284 - algorithms.cnn_model - INFO - Epoch 14, Batch 0, Loss: 1.389022, Acc: 37.50%
+2025-07-04 19:21:25,881 - algorithms.cnn_model - INFO - Epoch 14, Batch 100, Loss: 1.380188, Acc: 24.63%
+2025-07-04 19:21:27,448 - algorithms.cnn_model - INFO - Epoch 14, Batch 200, Loss: 1.393721, Acc: 25.06%
+2025-07-04 19:21:33,404 - __main__ - INFO - Epoch 15/50 - Train: 1.3868(25.25%) Val: 1.3862(25.60%) VRAM: 1540.8MB
