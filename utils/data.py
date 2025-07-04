@@ -108,12 +108,17 @@ def get_maze_cnn_loader(
     subset: str = "train",
     *,
     target_kind: str = "dist",
+    resize: Optional[Tuple[int, int]] = None,  # ← 추가
     batch_size: int = 32,
     shuffle: bool = True,
     num_workers: int = 0,
 ) -> DataLoader:
-    """Shortcut to obtain DataLoader ready for training."""
-    ds = MazeCNNDataset(subset=subset, target_kind=target_kind)
+    ds = MazeCNNDataset(
+        subset=subset,
+        target_kind=target_kind,
+        resize=resize,     # ← 전달
+        transform=None,
+    )
     return DataLoader(ds, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
 
 

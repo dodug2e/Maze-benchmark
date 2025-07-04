@@ -1,141 +1,78 @@
-# utils/data.py
-"""Dataset + helper loader for CNN heuristic training.
+# utils/df_pipeline.py
 
-This module converts the project’s maze dataset into PyTorch tensors
-suitable for training **MazeFeatureExtractor**. Target generation is
-based on *normalised Manhattan-distance to goal* (option *"dist"*).
-
-Supports optional resizing so that DataLoader can batch tensors of
-equal spatial dimensions.
-"""
-from __future__ import annotations
-
+import random, pickle
 from pathlib import Path
-from typing import Callable, Tuple, List, Optional
-
+from typing import List, Literal
 import numpy as np
-import torch
-import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
+from tqdm import tqdm
 
-try:
-    from utils.maze_io import load_sample  # type: ignore
-except ImportError as e:
-    raise RuntimeError("utils.maze_io not found; ensure project path is set") from e
+from algorithms.dqn_deepforest import Experience, MazeEnvironment
+from utils.maze_io import load_sample
 
-# ---------------------------------------------------------------------------
-# Target map helpers
-# ---------------------------------------------------------------------------
+Policy = Literal["random", "bfs"]
 
-def _manhattan_distance_map(h: int, w: int, goal: Tuple[int, int]) -> np.ndarray:
-    """Return *H×W* array with normalized Manhattan distance to *goal*.
+def _random_policy(env: MazeEnvironment):
+    return random.randrange(env.action_size)
 
-    Values in [0,1]: 1.0 at goal cell, 0.0 at farthest path cell.
-    Walls are left as-is (mask later).
-    """
-    gr, gc = goal
-    rows = np.arange(h)[:, None]
-    cols = np.arange(w)[None, :]
-    dist = np.abs(rows - gr) + np.abs(cols - gc)
-    norm = dist.max() or 1  # avoid div-zero
-    score = 1.0 - dist / norm
-    return score.astype(np.float32)
+def _bfs_policy(env: MazeEnvironment):
+    from collections import deque
+    rows, cols = env.rows, env.cols
+    start, goal = env.current_pos, env.goal
+    maze = env.maze
+    q = deque([start])
+    parent = {start: None}
+    while q:
+        r, c = q.popleft()
+        if (r, c) == goal: break
+        for dx, dy in env.actions:
+            nr, nc = r+dx, c+dy
+            if (0 <= nr < rows and 0 <= nc < cols and maze[nr,nc]==0 and (nr,nc) not in parent):
+                parent[(nr,nc)] = (r,c)
+                q.append((nr,nc))
+    if goal not in parent:
+        return _random_policy(env)
+    step = goal
+    while parent[step] != start:
+        step = parent[step]
+    dr, dc = step[0]-start[0], step[1]-start[1]
+    return env.actions.index((dr, dc))
 
+_POLICY = {"random": _random_policy, "bfs": _bfs_policy}
 
-def make_target(img: np.ndarray, meta: dict, *, kind: str = "dist") -> np.ndarray:
-    """Create target map according to *kind*.
+def build_buffer(*, subset: str="train", n_samples: int=5000, policy: Policy="random", max_steps_ep: int=300, seed: int=42) -> List[Experience]:
+    random.seed(seed); np.random.seed(seed)
+    buffer: List[Experience] = []
+    ids = [p.stem for p in (Path("datasets")/subset/"img").glob("*.png")]
+    tqdm_bar = tqdm(total=n_samples, desc="Collect")
+    for sid in ids:
+        if len(buffer)>=n_samples: break
+        img, meta, _ = load_sample(sid, subset=subset)
+        maze = (np.asarray(img)<128).astype(np.uint8)
+        start = tuple(meta.get("entrance", meta.get("start")))
+        goal  = tuple(meta.get("exit",     meta.get("goal")))
+        env = MazeEnvironment(maze, start, goal)
+        state = env.reset(); steps=0
+        while steps<max_steps_ep and len(buffer)<n_samples:
+            a = _POLICY[policy](env)
+            nxt, r, done = env.step(a)
+            buffer.append(Experience(state, a, r, nxt, done))
+            state = nxt; steps+=1
+            if done:
+                state = env.reset(); steps=0
+        tqdm_bar.update(len(buffer)-tqdm_bar.n)
+    tqdm_bar.close()
+    return buffer[:n_samples]
 
-    Parameters
-    ----------
-    img : ndarray (H×W) – binary maze image (0 path, 1 wall)
-    meta : dict – metadata JSON from load_sample
-    kind : {"dist"}
+def save_buffer(buffer: List[Experience], path: str):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "wb") as f:
+        pickle.dump(buffer, f)
+    print(f"[df_pipeline] saved → {path}")
 
-    Returns
-    -------
-    tgt : ndarray (1, H, W)
-    """
-    h, w = img.shape
-    goal = tuple(meta.get("goal", meta.get("exit")))
-
-    if kind == "dist":
-        tgt = _manhattan_distance_map(h, w, goal)
-        tgt[img == 1] = 0.0
-        return tgt[None]
-
-    raise ValueError(f"Unsupported target kind: {kind}")
-
-# ---------------------------------------------------------------------------
-# Dataset
-# ---------------------------------------------------------------------------
-
-class MazeCNNDataset(Dataset):
-    """Return (input, target) pairs for CNN heuristic training, with optional resize."""
-
-    def __init__(
-        self,
-        subset: str = "train",
-        *,
-        target_kind: str = "dist",
-        resize: Optional[Tuple[int, int]] = None,
-        transform: Optional[Callable[[torch.Tensor], torch.Tensor]] = None,
-    ) -> None:
-        super().__init__()
-        self.subset = subset
-        self.target_kind = target_kind
-        self.resize = resize
-        self.transform = transform
-
-        img_dir: Path = Path("datasets") / subset / "img"
-        self.sample_ids: List[str] = sorted(p.stem for p in img_dir.glob("*.png"))
-        if not self.sample_ids:
-            raise FileNotFoundError(f"No PNG files found in {img_dir}")
-
-    def __len__(self) -> int:
-        return len(self.sample_ids)
-
-    def __getitem__(self, idx: int):
-        sample_id = self.sample_ids[idx]
-        img, meta, _ = load_sample(sample_id, subset=self.subset)
-
-        arr = np.asarray(img, dtype=np.float32) / 255.0  # (H, W)
-        inp = torch.from_numpy(arr[None])               # (1, H, W)
-        tgt = torch.from_numpy(make_target(arr, meta, kind=self.target_kind))  # (1, H, W)
-
-        # Optional resize to common spatial dims
-        if self.resize:
-            size = self.resize
-            inp = F.interpolate(inp.unsqueeze(0), size=size, mode='bilinear', align_corners=False).squeeze(0)
-            tgt = F.interpolate(tgt.unsqueeze(0), size=size, mode='bilinear', align_corners=False).squeeze(0)
-
-        if self.transform:
-            inp = self.transform(inp)
-        return inp, tgt
-
-# ---------------------------------------------------------------------------
-# Convenience loader
-# ---------------------------------------------------------------------------
-
-def get_maze_cnn_loader(
-    subset: str = "train",
-    *,
-    target_kind: str = "dist",
-    resize: Optional[Tuple[int, int]] = None,
-    batch_size: int = 32,
-    shuffle: bool = True,
-    num_workers: int = 0,
-) -> DataLoader:
-    """Get DataLoader for MazeCNNDataset with optional resize."""
-    ds = MazeCNNDataset(
-        subset=subset,
-        target_kind=target_kind,
-        resize=resize,
-        transform=None,
-    )
-    return DataLoader(ds, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
-
-__all__ = [
-    "MazeCNNDataset",
-    "get_maze_cnn_loader",
-    "make_target",
-]
+def load_buffer(path: str) -> List[Experience]:
+    path = Path(path)
+    with open(path, "rb") as f:
+        buf = pickle.load(f)
+    print(f"[df_pipeline] loaded ← {path}")
+    return buf
