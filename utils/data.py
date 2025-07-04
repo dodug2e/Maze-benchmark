@@ -78,7 +78,7 @@ class MazeCNNDataset(Dataset):
         self.target_kind = target_kind
         self.transform = transform
 
-        img_dir: Path = Path("datasets") / subset / "img"
+        img_dir: Path = Path("datasets") / subset / "images"
         self.sample_ids: List[str] = sorted(p.stem for p in img_dir.glob("*.png"))
         if not self.sample_ids:
             raise FileNotFoundError(f"No PNG files found in {img_dir}")

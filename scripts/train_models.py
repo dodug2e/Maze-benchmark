@@ -74,11 +74,12 @@ def train_cnn(args: argparse.Namespace):
 
     # DataLoader
     loader = get_maze_cnn_loader(
-        subset=args.subset,
-        batch_size=args.batch_size,
-        target_kind="dist",
-        shuffle=True,
-    )
+    subset=args.subset,
+    target_kind="dist",
+    resize=(201, 201),      # ← 여기서 201×201로 통일
+    batch_size=args.batch_size,
+    shuffle=True,
+)
 
     for epoch in range(1, args.epochs + 1):
         running_loss = 0.0
