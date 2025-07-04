@@ -7,7 +7,7 @@ ACO (Ant Colony Optimization) + Deep Forest 하이브리드 접근법:
 2. ACO가 페로몬 기반으로 경로 탐색 및 최적화
 3. Deep Forest는 CNN보다 메모리 효율적이고 해석가능
 """
-
+from algorithms import BaseAlgorithm
 import numpy as np
 import time
 from typing import List, Tuple, Optional, Dict, Any
@@ -636,3 +636,49 @@ if __name__ == "__main__":
     
     if result.feature_importance:
         print("특징 중요도:", result.feature_importance)
+        
+# 2. Add to aco_deepforest.py at the end:
+
+from algorithms import BaseAlgorithm
+
+class ACODeepForestAlgorithm(BaseAlgorithm):
+    """ACO+DeepForest 알고리즘 래퍼 클래스"""
+    
+    def __init__(self, name: str = "ACO+DeepForest"):
+        super().__init__(name)
+        self.solver = None
+    
+    def configure(self, config: dict):
+        """알고리즘 설정"""
+        super().configure(config)
+        
+        self.solver = ACODeepForestSolver(
+            n_ants=config.get('num_ants', 20),
+            n_iterations=config.get('max_iterations', 100),
+            n_estimators=config.get('forest_estimators', 50),
+            n_layers=config.get('n_layers', 2)
+        )
+    
+    def solve(self, maze_array, metadata):
+        """미로 해결"""
+        if self.solver is None:
+            self.configure({})
+        
+        start = tuple(metadata.get('entrance', (0, 0)))
+        goal = tuple(metadata.get('exit', (maze_array.shape[0]-1, maze_array.shape[1]-1)))
+        
+        result = self.solver.solve(maze_array, start, goal)
+        
+        return {
+            'success': result.solution_found,
+            'solution_path': result.path if result.solution_found else [],
+            'solution_length': result.solution_length,
+            'execution_time': result.execution_time,
+            'additional_info': {
+                'iterations': result.iterations,
+                'convergence_iteration': result.convergence_iteration,
+                'total_steps': result.total_steps,
+                'failure_reason': result.failure_reason,
+                'forest_training_time': result.forest_training_time
+            }
+        }

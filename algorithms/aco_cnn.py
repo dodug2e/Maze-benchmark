@@ -498,3 +498,47 @@ if __name__ == "__main__":
     
     if result.solution_found:
         print("경로 (처음 10개):", result.path[:10])
+
+from algorithms import BaseAlgorithm
+
+class ACOCNNAlgorithm(BaseAlgorithm):
+    """ACO+CNN 알고리즘 래퍼 클래스"""
+    
+    def __init__(self, name: str = "ACO+CNN"):
+        super().__init__(name)
+        self.solver = None
+        
+    def configure(self, config: dict):
+        """알고리즘 설정"""
+        super().configure(config)
+        self.solver = ACOCNNSolver(
+            n_ants=config.get('num_ants', 20),
+            n_iterations=config.get('max_iterations', 100),
+            alpha=config.get('alpha', 1.0),
+            beta=config.get('beta', 2.0),
+            gamma=config.get('gamma', 1.5),
+            device=config.get('device', None)
+        )
+    
+    def solve(self, maze_array, metadata):
+        """미로 해결"""
+        if self.solver is None:
+            self.configure({})
+            
+        start = tuple(metadata.get('entrance', (0, 0)))
+        goal = tuple(metadata.get('exit', (maze_array.shape[0]-1, maze_array.shape[1]-1)))
+        
+        result = self.solver.solve(maze_array, start, goal)
+        
+        return {
+            'success': result.solution_found,
+            'solution_path': result.path if result.solution_found else [],
+            'solution_length': result.solution_length,
+            'execution_time': result.execution_time,
+            'additional_info': {
+                'iterations': result.iterations,
+                'convergence_iteration': result.convergence_iteration,
+                'total_steps': result.total_steps,
+                'failure_reason': result.failure_reason
+            }
+        }

@@ -86,7 +86,7 @@ def _auto_discover_algorithms():
         'DQN': 'dqn.py',
         'DQN_DeepForest': 'dqn_deepforest.py',
         'PPO': 'ppo.py',
-        'A_STAR': 'a_star.py'
+        'A_STAR': 'astar.py'
     }
     
     for algo_name, filename in algorithm_files.items():

@@ -312,3 +312,66 @@ class DQNAgent:
 # The rest of the original file (config helpers, CLI test) can be copied over
 # verbatim, as logic remains identical.
 
+# Add this to the end of dqn.py file:
+
+from algorithms import BaseAlgorithm
+
+class DQNAlgorithm(BaseAlgorithm):
+    """DQN 알고리즘 래퍼 클래스"""
+    
+    def __init__(self, name: str = "DQN"):
+        super().__init__(name)
+        self.agent = None
+        self.env = None
+        
+    def configure(self, config: dict):
+        """알고리즘 설정"""
+        super().configure(config)
+        
+        self.agent = DQNAgent(
+            lr=config.get('learning_rate', 1e-3),
+            gamma=config.get('gamma', 0.99),
+            epsilon=config.get('epsilon', 1.0),
+            epsilon_decay=config.get('epsilon_decay', 0.995),
+            batch_size=config.get('batch_size', 32),
+            buffer_size=config.get('buffer_size', 10000),
+            use_dueling=config.get('use_dueling', True),
+            use_double=config.get('use_double', True),
+            use_per=config.get('use_per', True)
+        )
+        
+        self.episodes = config.get('episodes', 1000)
+        self.max_steps = config.get('max_steps', 500)
+    
+    def solve(self, maze_array, metadata):
+        """미로 해결"""
+        if self.agent is None:
+            self.configure({})
+            
+        start = tuple(metadata.get('entrance', (0, 0)))
+        goal = tuple(metadata.get('exit', (maze_array.shape[0]-1, maze_array.shape[1]-1)))
+        
+        import time
+        start_time = time.time()
+        
+        # Create environment
+        from collections import namedtuple
+        MazeEnv = namedtuple('MazeEnv', ['maze', 'start', 'goal'])
+        env = MazeEnv(maze=maze_array, start=start, goal=goal)
+        
+        # Simple pathfinding for now (DQN requires proper implementation)
+        # This is a placeholder - the actual DQN implementation needs to be connected
+        
+        execution_time = time.time() - start_time
+        
+        return {
+            'success': False,
+            'solution_path': [],
+            'solution_length': 0,
+            'execution_time': execution_time,
+            'additional_info': {
+                'failure_reason': 'DQN implementation needs to be properly connected',
+                'episodes': self.episodes,
+                'max_steps': self.max_steps
+            }
+        }

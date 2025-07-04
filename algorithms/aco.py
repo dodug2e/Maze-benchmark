@@ -17,17 +17,11 @@ class ACOResult:
     maze_id: str = ""
     maze_size: Tuple[int, int] = (0, 0)
     execution_time: float = 0.0
-    power_consumption: float = 0.0
-    vram_usage: float = 0.0
-    gpu_utilization: float = 0.0
-    cpu_utilization: float = 0.0
     solution_found: bool = False
     solution_length: int = 0
     total_steps: int = 0
-    max_steps: int = 0
     failure_reason: str = ""
     path: List[Tuple[int, int]] = None
-    best_path_length: int = 0
     iterations: int = 0
     convergence_iteration: int = 0
 
@@ -64,19 +58,16 @@ class ACOSolver:
     def __init__(self, 
                  n_ants: int = 30,
                  n_iterations: int = 100,
-                 alpha: float = 1.0,      # 페로몬 가중치
-                 beta: float = 2.0,       # 휴리스틱 가중치
-                 rho: float = 0.1,        # 페로몬 증발률
-                 Q: float = 100.0):       # 페로몬 강도
-        
+                 alpha: float = 1.0,
+                 beta: float = 2.0,
+                 rho: float = 0.1,
+                 Q: float = 100.0):
         self.n_ants = n_ants
         self.n_iterations = n_iterations
-        self.alpha = alpha
-        self.beta = beta
-        self.rho = rho
-        self.Q = Q
-        
-        # 방향벡터 (상, 하, 좌, 우)
+        self.alpha = alpha  # 페로몬 가중치
+        self.beta = beta    # 휴리스틱 가중치
+        self.rho = rho      # 페로몬 증발률
+        self.Q = Q          # 페로몬 강도
         self.directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         
     def euclidean_distance(self, pos1: Tuple[int, int], pos2: Tuple[int, int]) -> float:
@@ -104,16 +95,11 @@ class ACOSolver:
                                        pheromone_map: np.ndarray,
                                        valid_neighbors: List[Tuple[int, int]]) -> float:
         """전이 확률 계산"""
-        # 페로몬 강도
         pheromone = pheromone_map[next_pos[0], next_pos[1]]
-        
-        # 거리 기반 휴리스틱
         distance_heuristic = 1.0 / (self.euclidean_distance(next_pos, goal) + 1e-8)
         
-        # 분자 계산
         numerator = (pheromone ** self.alpha) * (distance_heuristic ** self.beta)
         
-        # 분모 계산
         denominator = 0.0
         for neighbor in valid_neighbors:
             p = pheromone_map[neighbor[0], neighbor[1]]
@@ -130,14 +116,13 @@ class ACOSolver:
                            maze: np.ndarray,
                            goal: Tuple[int, int],
                            pheromone_map: np.ndarray) -> Optional[Tuple[int, int]]:
-        """다음 위치 선택 (룰렛 휠 선택)"""
+        """다음 위치 선택"""
         valid_neighbors = self.get_valid_neighbors(ant.current_pos, maze)
         unvisited_neighbors = [pos for pos in valid_neighbors if pos not in ant.visited]
         
         if not unvisited_neighbors:
             return None
         
-        # 각 이웃에 대한 확률 계산
         probabilities = []
         for neighbor in unvisited_neighbors:
             prob = self.calculate_transition_probability(
@@ -145,7 +130,6 @@ class ACOSolver:
             )
             probabilities.append(prob)
         
-        # 룰렛 휠 선택
         total_prob = sum(probabilities)
         if total_prob == 0:
             return random.choice(unvisited_neighbors)
@@ -155,10 +139,8 @@ class ACOSolver:
     
     def update_pheromone(self, pheromone_map: np.ndarray, ants: List[Ant], goal: Tuple[int, int]):
         """페로몬 업데이트"""
-        # 페로몬 증발
         pheromone_map *= (1 - self.rho)
         
-        # 각 개미의 경로에 페로몬 추가
         for ant in ants:
             if ant.current_pos == goal:
                 pheromone_strength = self.Q / ant.path_length
@@ -171,9 +153,7 @@ class ACOSolver:
         start_time = time.time()
         result = ACOResult()
         result.maze_size = maze.shape
-        result.max_steps = max_steps
         
-        # 시작점이나 목표점이 벽인 경우
         if maze[start[0], start[1]] == 1:
             result.failure_reason = "시작점이 벽입니다"
             result.execution_time = time.time() - start_time
@@ -184,11 +164,9 @@ class ACOSolver:
             result.execution_time = time.time() - start_time
             return result
         
-        # 초기화
         rows, cols = maze.shape
         pheromone_map = np.ones((rows, cols)) * 0.1
         
-        # 개미들 초기화
         ants = [Ant(start) for _ in range(self.n_ants)]
         
         best_path = None
@@ -196,9 +174,7 @@ class ACOSolver:
         convergence_iteration = 0
         total_steps = 0
         
-        # ACO 메인 루프
         for iteration in range(self.n_iterations):
-            # 각 개미 이동
             for ant in ants:
                 ant.reset()
                 
@@ -217,24 +193,20 @@ class ACOSolver:
                         ant.is_alive = False
                         break
                 
-                # 최적 경로 업데이트
                 if ant.current_pos == goal and ant.path_length < best_path_length:
                     best_path = ant.path.copy()
                     best_path_length = ant.path_length
                     convergence_iteration = iteration
             
-            # 페로몬 업데이트
             self.update_pheromone(pheromone_map, ants, goal)
             
             if total_steps >= max_steps:
                 break
         
-        # 결과 설정
         if best_path is not None:
             result.solution_found = True
             result.path = best_path
             result.solution_length = len(best_path)
-            result.best_path_length = best_path_length
         else:
             result.failure_reason = "해결책을 찾을 수 없습니다"
         
@@ -251,12 +223,10 @@ class ACOAlgorithm(BaseAlgorithm):
     def __init__(self, name: str = "ACO"):
         super().__init__(name)
         self.solver = None
-    
+        
     def configure(self, config: dict):
         """알고리즘 설정"""
         super().configure(config)
-        
-        # ACO 솔버 초기화
         self.solver = ACOSolver(
             n_ants=config.get('num_ants', 30),
             n_iterations=config.get('max_iterations', 100),
@@ -270,15 +240,12 @@ class ACOAlgorithm(BaseAlgorithm):
         """미로 해결"""
         if self.solver is None:
             self.configure({})
-        
-        # 메타데이터에서 시작점과 목표점 추출
+            
         start = tuple(metadata.get('entrance', (0, 0)))
         goal = tuple(metadata.get('exit', (maze_array.shape[0]-1, maze_array.shape[1]-1)))
         
-        # ACO 실행
         result = self.solver.solve(maze_array, start, goal)
         
-        # 공통 인터페이스 형식으로 변환
         return {
             'success': result.solution_found,
             'solution_path': result.path if result.solution_found else [],
@@ -291,30 +258,3 @@ class ACOAlgorithm(BaseAlgorithm):
                 'failure_reason': result.failure_reason
             }
         }
-
-# 테스트 코드
-if __name__ == "__main__":
-    # 테스트 미로
-    test_maze = np.array([
-        [0, 0, 0, 1, 0, 0, 0],
-        [1, 1, 0, 1, 0, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 1, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0]
-    ])
-    
-    metadata = {
-        'entrance': (0, 0),
-        'exit': (6, 6)
-    }
-    
-    print("ACO 알고리즘 테스트")
-    algorithm = ACOAlgorithm()
-    result = algorithm.solve(test_maze, metadata)
-    
-    print(f"해결 성공: {result['success']}")
-    print(f"경로 길이: {result['solution_length']}")
-    print(f"실행 시간: {result['execution_time']:.2f}초")
-    print(f"반복 횟수: {result['additional_info']['iterations']}")
