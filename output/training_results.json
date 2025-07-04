@@ -1,9 +1,9 @@
 {
   "cnn": {
     "model_type": "CNN",
-    "training_time": 67.57170557975769,
+    "training_time": 50.3427255153656,
     "best_val_accuracy": 24.2,
-    "final_val_accuracy": 22.8,
+    "final_val_accuracy": 22.4,
     "total_epochs": 2,
     "model_info": {
       "total_parameters": 6878020,
@@ -13,19 +13,19 @@
     "train_history": [
       {
         "epoch": 0,
-        "train_loss": 1.3988515610694885,
-        "train_acc": 24.85,
-        "val_loss": 1.3861321935653685,
+        "train_loss": 1.395277424812317,
+        "train_acc": 26.65,
+        "val_loss": 1.3878222913742067,
         "val_acc": 24.2,
-        "vram_usage": 1440.60546875
+        "vram_usage": 1451.77734375
       },
       {
         "epoch": 1,
-        "train_loss": 1.3887060267925262,
-        "train_acc": 24.25,
-        "val_loss": 1.3879728288650512,
-        "val_acc": 22.8,
-        "vram_usage": 1424.98046875
+        "train_loss": 1.386515257358551,
+        "train_acc": 25.15,
+        "val_loss": 1.3874162387847901,
+        "val_acc": 22.4,
+        "vram_usage": 1450.33984375
       }
     ],
     "model_paths": {
@@ -33,43 +33,43 @@
       "final": "output\\models\\final_cnn_model.pth"
     },
     "performance": {
-      "duration_seconds": 69.5,
-      "total_samples": 139,
+      "duration_seconds": 52.0,
+      "total_samples": 104,
       "cpu_percent": {
         "min": 0.0,
-        "max": 28.7,
-        "avg": 15.177697841726618,
-        "peak": 28.7
+        "max": 35.4,
+        "avg": 13.963461538461539,
+        "peak": 35.4
       },
       "memory_mb": {
-        "min": 14377.296875,
-        "max": 15909.44140625,
-        "avg": 15484.675949865108,
-        "peak": 15909.44140625
+        "min": 14236.13671875,
+        "max": 16045.86328125,
+        "avg": 15530.491661658654,
+        "peak": 16045.86328125
       },
       "gpu_percent": {
         "min": 0,
-        "max": 98,
-        "avg": 17.676258992805757,
-        "peak": 98
+        "max": 89,
+        "avg": 19.28846153846154,
+        "peak": 89
       },
       "vram_used_mb": {
-        "min": 959.8046875,
-        "max": 1441.35546875,
-        "avg": 1358.7103192446043,
-        "peak": 1441.35546875
+        "min": 971.08203125,
+        "max": 1457.33984375,
+        "avg": 1362.6787109375,
+        "peak": 1457.33984375
       },
       "vram_total_mb": 6144.0,
       "power_watts": {
-        "min": 15.374,
-        "max": 119.144,
-        "avg": 30.71791366906475,
-        "peak": 119.144
+        "min": 13.185,
+        "max": 130.749,
+        "avg": 41.08851923076923,
+        "peak": 130.749
       },
       "temperature_c": {
-        "min": 40,
+        "min": 39,
         "max": 56,
-        "avg": 44.093525179856115,
+        "avg": 45.35576923076923,
         "peak": 56
       }
     }

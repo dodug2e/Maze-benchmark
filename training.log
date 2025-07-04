@@ -118,3 +118,124 @@
 2025-07-04 17:30:51,789 - __main__ - INFO - 하이브리드 평가 완료 - 결과 저장: output\results\hybrid_evaluation.json
 2025-07-04 17:30:51,790 - __main__ - INFO - 최종 벤치마크 리포트 생성 중...
 2025-07-04 17:30:51,797 - __main__ - INFO - 최종 리포트 생성 완료: output\results\benchmark_report.md
+2025-07-04 17:37:25,322 - utils.profiler - INFO - GPU 감지: NVIDIA GeForce RTX 3060 Laptop GPU
+2025-07-04 17:37:25,323 - __main__ - INFO - 빠른 테스트 모드 활성화
+2025-07-04 17:37:25,323 - __main__ - INFO - 전체 벤치마크 실행
+2025-07-04 17:37:25,325 - __main__ - INFO - 미로 벤치마크 시작
+2025-07-04 17:37:25,325 - __main__ - INFO - 설정: 2개 ML 모델
+2025-07-04 17:37:25,325 - __main__ - INFO - 시스템 요구사항 확인 중...
+2025-07-04 17:37:25,346 - __main__ - INFO - 초기 VRAM 사용률: 15.8%
+2025-07-04 17:37:25,398 - __main__ - INFO - 데이터셋 크기: train=10000, valid=8000, test=2000
+2025-07-04 17:37:25,398 - __main__ - INFO - 
+============================================================
+2025-07-04 17:37:25,398 - __main__ - INFO - ML 모델 학습 단계
+2025-07-04 17:37:25,398 - __main__ - INFO - ============================================================
+2025-07-04 17:37:25,399 - utils.profiler - INFO - 성능 측정 시작: ML 모델 학습
+2025-07-04 17:37:25,412 - utils.profiler - INFO - 성능 모니터링 시작
+2025-07-04 17:37:25,412 - scripts.train_ml_models - INFO - ML 모델 학습 파이프라인 시작
+2025-07-04 17:37:25,419 - scripts.train_ml_models - INFO - 초기 VRAM 사용률: 15.7%
+2025-07-04 17:37:25,445 - scripts.train_ml_models - INFO - train 샘플 수 제한: 2000
+2025-07-04 17:37:25,466 - scripts.train_ml_models - INFO - valid 샘플 수 제한: 500
+2025-07-04 17:37:25,472 - scripts.train_ml_models - INFO - test 샘플 수 제한: 200
+2025-07-04 17:37:25,472 - scripts.train_ml_models - INFO - 데이터 분할: train=2000, valid=500, test=200
+2025-07-04 17:37:25,472 - scripts.train_ml_models - INFO - 
+==================================================
+2025-07-04 17:37:25,473 - scripts.train_ml_models - INFO - CNN 모델 학습 시작
+2025-07-04 17:37:25,473 - scripts.train_ml_models - INFO - ==================================================
+2025-07-04 17:37:25,473 - utils.profiler - INFO - 성능 측정 시작: CNN 학습
+2025-07-04 17:37:25,541 - scripts.train_ml_models - INFO - CNN 파라미터: 6,878,020
+2025-07-04 17:37:25,542 - scripts.train_ml_models - INFO - 예상 메모리: 26.2MB
+2025-07-04 17:37:27,377 - algorithms.cnn_model - INFO - CNN 모델이 cuda에 로드되었습니다.
+2025-07-04 17:37:27,377 - algorithms.cnn_model - INFO - 모델 파라미터: 6,878,020
+2025-07-04 17:37:27,377 - algorithms.cnn_model - INFO - 예상 메모리: 26.2MB
+2025-07-04 17:37:38,995 - algorithms.cnn_model - INFO - Epoch 0, Batch 0, Loss: 1.385183, Acc: 25.00%
+2025-07-04 17:37:39,974 - algorithms.cnn_model - INFO - Epoch 0, Batch 100, Loss: 1.496874, Acc: 25.25%
+2025-07-04 17:37:40,936 - algorithms.cnn_model - INFO - Epoch 0, Batch 200, Loss: 1.402574, Acc: 24.88%
+2025-07-04 17:37:41,891 - algorithms.cnn_model - INFO - Epoch 0, Batch 300, Loss: 1.446743, Acc: 26.41%
+2025-07-04 17:37:42,849 - algorithms.cnn_model - INFO - Epoch 0, Batch 400, Loss: 1.364154, Acc: 25.94%
+2025-07-04 17:37:52,577 - scripts.train_ml_models - INFO - Epoch 1/2 - Train: 1.3953(26.65%) Val: 1.3878(24.20%) VRAM: 1451.8MB
+2025-07-04 17:37:52,669 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\best_cnn_model.pth
+2025-07-04 17:38:04,180 - algorithms.cnn_model - INFO - Epoch 1, Batch 0, Loss: 1.406626, Acc: 25.00%
+2025-07-04 17:38:05,164 - algorithms.cnn_model - INFO - Epoch 1, Batch 100, Loss: 1.367690, Acc: 25.99%
+2025-07-04 17:38:06,134 - algorithms.cnn_model - INFO - Epoch 1, Batch 200, Loss: 1.363520, Acc: 26.99%
+2025-07-04 17:38:07,084 - algorithms.cnn_model - INFO - Epoch 1, Batch 300, Loss: 1.415650, Acc: 25.50%
+2025-07-04 17:38:08,042 - algorithms.cnn_model - INFO - Epoch 1, Batch 400, Loss: 1.401285, Acc: 25.06%
+2025-07-04 17:38:17,720 - scripts.train_ml_models - INFO - Epoch 2/2 - Train: 1.3865(25.15%) Val: 1.3874(22.40%) VRAM: 1450.3MB
+2025-07-04 17:38:17,815 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\final_cnn_model.pth
+2025-07-04 17:38:17,816 - scripts.train_ml_models - INFO - CNN 학습 완료 - 최고 검증 정확도: 24.2000
+2025-07-04 17:38:17,822 - utils.profiler - INFO - 성능 측정 완료: CNN 학습
+2025-07-04 17:38:17,822 - utils.profiler - INFO -   실행 시간: 52.33초
+2025-07-04 17:38:17,822 - utils.profiler - INFO -   VRAM 피크: 1457.3MB
+2025-07-04 17:38:17,823 - utils.profiler - INFO -   최종 VRAM: 1446.1MB
+2025-07-04 17:38:17,824 - scripts.train_ml_models - INFO - 
+==================================================
+2025-07-04 17:38:17,824 - scripts.train_ml_models - INFO - Deep Forest 모델 학습 시작
+2025-07-04 17:38:17,825 - scripts.train_ml_models - INFO - ==================================================
+2025-07-04 17:38:17,825 - utils.profiler - INFO - 성능 측정 시작: Deep Forest 학습
+2025-07-04 17:38:17,838 - utils.profiler - INFO - 성능 측정 완료: Deep Forest 학습
+2025-07-04 17:38:17,838 - utils.profiler - INFO -   실행 시간: 0.00초
+2025-07-04 17:38:17,838 - utils.profiler - INFO -   VRAM 피크: 1457.3MB
+2025-07-04 17:38:17,839 - utils.profiler - INFO -   최종 VRAM: 1272.1MB
+2025-07-04 17:38:17,839 - scripts.train_ml_models - ERROR - Deep Forest 학습 실패: name 'os' is not defined
+2025-07-04 17:38:17,846 - scripts.train_ml_models - INFO - 최종 VRAM 사용률: 20.7%
+2025-07-04 17:38:17,847 - scripts.train_ml_models - INFO - 학습 완료 - 결과 저장: output\training_results.json
+2025-07-04 17:38:17,847 - scripts.train_ml_models - INFO - 리포트 생성 완료: output\training_report.md
+2025-07-04 17:38:18,260 - utils.profiler - INFO - 성능 모니터링 중지
+2025-07-04 17:38:18,260 - utils.profiler - INFO - 성능 측정 완료: ML 모델 학습
+2025-07-04 17:38:18,260 - utils.profiler - INFO -   실행 시간: 52.44초
+2025-07-04 17:38:18,260 - utils.profiler - INFO -   VRAM 피크: 1457.3MB
+2025-07-04 17:38:18,261 - utils.profiler - INFO -   최종 VRAM: 1272.1MB
+2025-07-04 17:38:18,261 - __main__ - INFO - 
+============================================================
+2025-07-04 17:38:18,261 - __main__ - INFO - 하이브리드 알고리즘 평가 단계
+2025-07-04 17:38:18,261 - __main__ - INFO - ============================================================
+2025-07-04 17:38:18,268 - __main__ - INFO - 평가할 미로 개수: 5
+2025-07-04 17:38:18,269 - __main__ - INFO - 
+미로 1/5 평가 중... (ID: maze_000000)
+2025-07-04 17:38:18,278 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-07-04 17:38:18,278 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 2459
+2025-07-04 17:38:18,392 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:38:18,394 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:38:18,395 - algorithms.hybrid_aco - ERROR - 기본 ACO 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'cnn_weight'
+2025-07-04 17:38:18,395 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:38:18,395 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'df_weight'
+2025-07-04 17:38:18,395 - __main__ - INFO - 
+미로 2/5 평가 중... (ID: maze_000001)
+2025-07-04 17:38:18,396 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-07-04 17:38:18,396 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 1720
+2025-07-04 17:38:18,482 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:38:18,483 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:38:18,483 - algorithms.hybrid_aco - ERROR - 기본 ACO 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'cnn_weight'
+2025-07-04 17:38:18,483 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:38:18,483 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'df_weight'
+2025-07-04 17:38:18,483 - __main__ - INFO - 
+미로 3/5 평가 중... (ID: maze_000002)
+2025-07-04 17:38:18,484 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-07-04 17:38:18,484 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 4540
+2025-07-04 17:38:18,564 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:38:18,565 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:38:18,565 - algorithms.hybrid_aco - ERROR - 기본 ACO 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'cnn_weight'
+2025-07-04 17:38:18,565 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:38:18,565 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'df_weight'
+2025-07-04 17:38:18,565 - __main__ - INFO - 
+미로 4/5 평가 중... (ID: maze_000003)
+2025-07-04 17:38:18,566 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-07-04 17:38:18,566 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 4966
+2025-07-04 17:38:18,649 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:38:18,651 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:38:18,651 - algorithms.hybrid_aco - ERROR - 기본 ACO 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'cnn_weight'
+2025-07-04 17:38:18,651 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:38:18,651 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'df_weight'
+2025-07-04 17:38:18,651 - __main__ - INFO - 
+미로 5/5 평가 중... (ID: maze_000004)
+2025-07-04 17:38:18,652 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2025-07-04 17:38:18,652 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 2417
+2025-07-04 17:38:18,733 - algorithms.hybrid_aco - INFO - CNN 모델 로드 완료: output\models\best_cnn_model.pth
+2025-07-04 17:38:18,734 - algorithms.hybrid_aco - INFO - 기본 ACO 실행
+2025-07-04 17:38:18,734 - algorithms.hybrid_aco - ERROR - 기본 ACO 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'cnn_weight'
+2025-07-04 17:38:18,734 - algorithms.hybrid_aco - INFO - ACO+CNN 하이브리드 실행 (CNN 가중치: 0.3)
+2025-07-04 17:38:18,735 - algorithms.hybrid_aco - ERROR - ACO+CNN 실행 실패: BaseACO.__init__() got an unexpected keyword argument 'df_weight'
+2025-07-04 17:38:18,736 - __main__ - INFO - 하이브리드 평가 완료 - 결과 저장: output\results\hybrid_evaluation.json
+2025-07-04 17:38:18,736 - __main__ - INFO - 최종 벤치마크 리포트 생성 중...
+2025-07-04 17:38:18,744 - __main__ - INFO - 최종 리포트 생성 완료: output\results\benchmark_report.md
+2025-07-04 17:38:18,753 - __main__ - INFO - 전체 벤치마크 완료! 총 소요 시간: 53초

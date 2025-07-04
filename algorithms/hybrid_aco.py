@@ -475,13 +475,17 @@ class HybridSolver:
         """기본 ACO로 해결"""
         logger.info("기본 ACO 실행")
         
+        # cnn_weight, df_weight 제거
+        clean_kwargs = {k: v for k, v in kwargs.items() 
+                       if k not in ['cnn_weight', 'df_weight']}
+        
         start_time = time.time()
-        solver = BaseACO(self.maze, self.start_pos, self.goal_pos, **kwargs)
+        solver = BaseACO(self.maze, self.start_pos, self.goal_pos, **clean_kwargs)
         path = solver.solve()
         execution_time = time.time() - start_time
         
         result = {
-            'algorithm': 'ACO',
+            'algorithm': 'aco',
             'path': path,
             'path_length': len(path) if path else 0,
             'execution_time': execution_time,
@@ -499,18 +503,22 @@ class HybridSolver:
         
         logger.info(f"ACO+CNN 하이브리드 실행 (CNN 가중치: {cnn_weight})")
         
+        # cnn_weight, df_weight 제거
+        clean_kwargs = {k: v for k, v in kwargs.items() 
+                       if k not in ['cnn_weight', 'df_weight']}
+        
         start_time = time.time()
         solver = HybridACO_CNN(
             self.maze, self.start_pos, self.goal_pos,
             cnn_model=self.models['cnn'],
             cnn_weight=cnn_weight,
-            **kwargs
+            **clean_kwargs
         )
         path = solver.solve()
         execution_time = time.time() - start_time
         
         result = {
-            'algorithm': 'ACO+CNN',
+            'algorithm': 'aco_cnn',
             'path': path,
             'path_length': len(path) if path else 0,
             'execution_time': execution_time,
@@ -529,18 +537,22 @@ class HybridSolver:
         
         logger.info(f"ACO+Deep Forest 하이브리드 실행 (DF 가중치: {df_weight})")
         
+        # cnn_weight, df_weight 제거
+        clean_kwargs = {k: v for k, v in kwargs.items() 
+                       if k not in ['cnn_weight', 'df_weight']}
+        
         start_time = time.time()
         solver = HybridACO_DeepForest(
             self.maze, self.start_pos, self.goal_pos,
             df_model=self.models['deep_forest'],
             df_weight=df_weight,
-            **kwargs
+            **clean_kwargs
         )
         path = solver.solve()
         execution_time = time.time() - start_time
         
         result = {
-            'algorithm': 'ACO+DeepForest',
+            'algorithm': 'aco_df',
             'path': path,
             'path_length': len(path) if path else 0,
             'execution_time': execution_time,
