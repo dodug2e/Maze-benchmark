@@ -1,0 +1,1553 @@
+{
+  "algorithm": "ACO",
+  "metric": "vram",
+  "subset": "test",
+  "duration": 10,
+  "num_samples": 3,
+  "measurements": [
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.18939781188964844,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602146.2257466,
+        "cpu_percent": 25.0,
+        "memory_mb": 13092.953125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.814,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602146.421419,
+        "cpu_percent": 9.0,
+        "memory_mb": 13083.6171875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.27,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 9.0,
+      "power_consumption": 14.27
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.18317461013793945,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602146.4321444,
+        "cpu_percent": 0.0,
+        "memory_mb": 13082.1484375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.27,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602146.621346,
+        "cpu_percent": 15.0,
+        "memory_mb": 13085.08984375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.562,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 15.0,
+      "power_consumption": 14.562
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.1964261531829834,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602146.6270757,
+        "cpu_percent": 12.5,
+        "memory_mb": 13085.06640625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.562,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602146.8300114,
+        "cpu_percent": 19.9,
+        "memory_mb": 13085.66015625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.699,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 19.9,
+      "power_consumption": 14.699
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.18868589401245117,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602146.8358161,
+        "cpu_percent": 0.0,
+        "memory_mb": 13085.58984375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.699,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602147.0311575,
+        "cpu_percent": 18.0,
+        "memory_mb": 13080.734375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.582,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 18.0,
+      "power_consumption": 14.582
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.1846163272857666,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602147.037547,
+        "cpu_percent": 0.0,
+        "memory_mb": 13080.734375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.582,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602147.2287822,
+        "cpu_percent": 12.8,
+        "memory_mb": 13079.703125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.163,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 12.8,
+      "power_consumption": 14.163
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.19370436668395996,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602147.2358136,
+        "cpu_percent": 6.7,
+        "memory_mb": 13079.703125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.163,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602147.4355183,
+        "cpu_percent": 9.5,
+        "memory_mb": 13067.07421875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 17.165,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 9.5,
+      "power_consumption": 17.165
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.18441390991210938,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602147.4425182,
+        "cpu_percent": 0.0,
+        "memory_mb": 13067.07421875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 17.165,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602147.6339927,
+        "cpu_percent": 9.4,
+        "memory_mb": 13069.9375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.494,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 9.4,
+      "power_consumption": 14.494
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.19807887077331543,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602147.6400175,
+        "cpu_percent": 33.3,
+        "memory_mb": 13069.9375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.494,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602147.8440964,
+        "cpu_percent": 9.1,
+        "memory_mb": 13068.20703125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.744,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 9.1,
+      "power_consumption": 13.744
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.18467497825622559,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602147.856606,
+        "cpu_percent": 6.7,
+        "memory_mb": 13067.6953125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.744,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602148.048792,
+        "cpu_percent": 7.7,
+        "memory_mb": 13067.625,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.76,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 1,
+      "cpu_utilization": 7.7,
+      "power_consumption": 13.76
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.18428826332092285,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602148.0618162,
+        "cpu_percent": 13.3,
+        "memory_mb": 13067.625,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.76,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602148.2526622,
+        "cpu_percent": 7.3,
+        "memory_mb": 13066.15234375,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.682,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 1,
+      "cpu_utilization": 7.3,
+      "power_consumption": 13.682
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.19775009155273438,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602148.2598095,
+        "cpu_percent": 0.0,
+        "memory_mb": 13066.15234375,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.682,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602148.4624102,
+        "cpu_percent": 8.2,
+        "memory_mb": 13066.11328125,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.939,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 1,
+      "cpu_utilization": 8.2,
+      "power_consumption": 13.939
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.18388938903808594,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602148.4689205,
+        "cpu_percent": 28.6,
+        "memory_mb": 13065.53515625,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.939,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602148.6603272,
+        "cpu_percent": 6.0,
+        "memory_mb": 13069.328125,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.752,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 1,
+      "cpu_utilization": 6.0,
+      "power_consumption": 13.752
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.17822599411010742,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602148.6664803,
+        "cpu_percent": 0.0,
+        "memory_mb": 13069.828125,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.752,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602148.8500562,
+        "cpu_percent": 10.8,
+        "memory_mb": 13067.23828125,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.752,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 1,
+      "cpu_utilization": 10.8,
+      "power_consumption": 13.752
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.20207905769348145,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602148.8570566,
+        "cpu_percent": 0.0,
+        "memory_mb": 13067.109375,
+        "gpu_percent": 1,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.752,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602149.06514,
+        "cpu_percent": 7.1,
+        "memory_mb": 13065.53125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.752,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.1,
+      "power_consumption": 13.752
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.1773395538330078,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602149.0711389,
+        "cpu_percent": 0.0,
+        "memory_mb": 13065.53125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1696.48046875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.752,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602149.254498,
+        "cpu_percent": 6.2,
+        "memory_mb": 13062.75,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.121,
+        "temperature_c": 35
+      },
+      "vram_delta": -4.125,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.2,
+      "power_consumption": 12.121
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.1801459789276123,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602149.2620077,
+        "cpu_percent": 0.0,
+        "memory_mb": 13062.75,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.121,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602149.4491544,
+        "cpu_percent": 7.8,
+        "memory_mb": 13062.453125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.811,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.8,
+      "power_consumption": 13.811
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.19105029106140137,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602149.4553096,
+        "cpu_percent": 6.2,
+        "memory_mb": 13062.453125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.811,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602149.6528666,
+        "cpu_percent": 13.4,
+        "memory_mb": 13065.34765625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.821,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 13.4,
+      "power_consumption": 13.821
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.1847059726715088,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602149.659867,
+        "cpu_percent": 17.4,
+        "memory_mb": 13065.47265625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.821,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602149.8540826,
+        "cpu_percent": 14.4,
+        "memory_mb": 13064.0625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.726,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 14.4,
+      "power_consumption": 13.726
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.1845107078552246,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602149.8614845,
+        "cpu_percent": 6.2,
+        "memory_mb": 13064.46484375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.726,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602150.0509975,
+        "cpu_percent": 6.2,
+        "memory_mb": 13064.28125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.779,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.2,
+      "power_consumption": 13.779
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.19910168647766113,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602150.0569956,
+        "cpu_percent": 0.0,
+        "memory_mb": 13064.28125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.779,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602150.2620974,
+        "cpu_percent": 14.9,
+        "memory_mb": 13064.5234375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 14.9,
+      "power_consumption": 13.694
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.18402814865112305,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602150.2678459,
+        "cpu_percent": 18.8,
+        "memory_mb": 13064.7734375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602150.4585323,
+        "cpu_percent": 20.2,
+        "memory_mb": 13064.5,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 20.2,
+      "power_consumption": 13.694
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.18938589096069336,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602150.4652934,
+        "cpu_percent": 0.0,
+        "memory_mb": 13064.54296875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602150.6616812,
+        "cpu_percent": 16.7,
+        "memory_mb": 13066.546875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 16.7,
+      "power_consumption": 13.694
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.1848299503326416,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602150.6673267,
+        "cpu_percent": 0.0,
+        "memory_mb": 13066.45703125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602150.8582425,
+        "cpu_percent": 14.8,
+        "memory_mb": 13063.84375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 14.8,
+      "power_consumption": 13.694
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.18025493621826172,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602150.8636613,
+        "cpu_percent": 0.0,
+        "memory_mb": 13063.84375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602151.0508666,
+        "cpu_percent": 7.3,
+        "memory_mb": 13063.4375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.3,
+      "power_consumption": 13.694
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.1924896240234375,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602151.0578666,
+        "cpu_percent": 0.0,
+        "memory_mb": 13063.4375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.694,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602151.2563558,
+        "cpu_percent": 6.2,
+        "memory_mb": 13063.0078125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.182,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.2,
+      "power_consumption": 12.182
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.18581581115722656,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602151.2699287,
+        "cpu_percent": 6.2,
+        "memory_mb": 13063.0078125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.182,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602151.4617443,
+        "cpu_percent": 9.5,
+        "memory_mb": 13062.78515625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.785,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 9.5,
+      "power_consumption": 12.785
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.18528032302856445,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602151.4690845,
+        "cpu_percent": 6.2,
+        "memory_mb": 13062.78515625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.785,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602151.6613646,
+        "cpu_percent": 8.8,
+        "memory_mb": 13066.5234375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.303,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 8.8,
+      "power_consumption": 12.303
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.19584012031555176,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602151.6683688,
+        "cpu_percent": 0.0,
+        "memory_mb": 13066.5234375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.303,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602151.8712094,
+        "cpu_percent": 7.7,
+        "memory_mb": 13065.41015625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.02,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.7,
+      "power_consumption": 12.02
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.18201160430908203,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602151.8782115,
+        "cpu_percent": 6.2,
+        "memory_mb": 13065.41015625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.02,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602152.0678046,
+        "cpu_percent": 7.3,
+        "memory_mb": 13065.09765625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.634,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.3,
+      "power_consumption": 13.634
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.1846001148223877,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602152.075812,
+        "cpu_percent": 0.0,
+        "memory_mb": 13065.09765625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.634,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602152.2669234,
+        "cpu_percent": 7.1,
+        "memory_mb": 13063.27734375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.22,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.1,
+      "power_consumption": 12.22
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.19991683959960938,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602152.274429,
+        "cpu_percent": 0.0,
+        "memory_mb": 13063.11328125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.22,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602152.4813468,
+        "cpu_percent": 7.7,
+        "memory_mb": 13063.0,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.393,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.7,
+      "power_consumption": 12.393
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.18278002738952637,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602152.4886699,
+        "cpu_percent": 6.2,
+        "memory_mb": 13063.0,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.393,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602152.6784499,
+        "cpu_percent": 6.7,
+        "memory_mb": 13065.91796875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 11.957,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.7,
+      "power_consumption": 11.957
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.1912539005279541,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602152.68699,
+        "cpu_percent": 6.2,
+        "memory_mb": 13065.91796875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 11.957,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602152.8852444,
+        "cpu_percent": 6.3,
+        "memory_mb": 13065.56640625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.576,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.3,
+      "power_consumption": 12.576
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.18527960777282715,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602152.8932438,
+        "cpu_percent": 11.1,
+        "memory_mb": 13065.56640625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.576,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602153.0850346,
+        "cpu_percent": 6.5,
+        "memory_mb": 13065.5078125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.104,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.5,
+      "power_consumption": 12.104
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.18406152725219727,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602153.09248,
+        "cpu_percent": 6.7,
+        "memory_mb": 13065.5078125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.104,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602153.2825978,
+        "cpu_percent": 7.8,
+        "memory_mb": 13064.96484375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.538,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.8,
+      "power_consumption": 13.538
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.19761133193969727,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602153.290549,
+        "cpu_percent": 0.0,
+        "memory_mb": 13064.96484375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.538,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602153.4941688,
+        "cpu_percent": 7.7,
+        "memory_mb": 13066.90625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.237,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.7,
+      "power_consumption": 12.237
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.1878817081451416,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602153.501679,
+        "cpu_percent": 50.0,
+        "memory_mb": 13066.90625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.237,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602153.6975603,
+        "cpu_percent": 9.7,
+        "memory_mb": 13066.46484375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.124,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 9.7,
+      "power_consumption": 12.124
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.18088579177856445,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602153.7045684,
+        "cpu_percent": 100.0,
+        "memory_mb": 13065.27734375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.124,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602153.8924546,
+        "cpu_percent": 6.3,
+        "memory_mb": 13063.43359375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.171,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.3,
+      "power_consumption": 12.171
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.19216299057006836,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602153.8996222,
+        "cpu_percent": 0.0,
+        "memory_mb": 13063.9296875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.171,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602154.0994904,
+        "cpu_percent": 13.9,
+        "memory_mb": 13063.7421875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.594,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 13.9,
+      "power_consumption": 12.594
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.18373346328735352,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602154.1062138,
+        "cpu_percent": 0.0,
+        "memory_mb": 13063.734375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.594,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602154.2966602,
+        "cpu_percent": 13.9,
+        "memory_mb": 13062.95703125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.765,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 13.9,
+      "power_consumption": 12.765
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.1972963809967041,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602154.3037817,
+        "cpu_percent": 0.0,
+        "memory_mb": 13062.94921875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.765,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602154.507309,
+        "cpu_percent": 16.2,
+        "memory_mb": 13067.29296875,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.8,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 16.2,
+      "power_consumption": 13.8
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.18611955642700195,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602154.51466,
+        "cpu_percent": 40.0,
+        "memory_mb": 13067.15234375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.8,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602154.7078798,
+        "cpu_percent": 9.6,
+        "memory_mb": 13066.5625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.421,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 9.6,
+      "power_consumption": 14.421
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.1829841136932373,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602154.715418,
+        "cpu_percent": 0.0,
+        "memory_mb": 13066.5625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 14.421,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602154.9053783,
+        "cpu_percent": 6.7,
+        "memory_mb": 13065.2890625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.469,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.7,
+      "power_consumption": 12.469
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.19215989112854004,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602154.9123783,
+        "cpu_percent": 0.0,
+        "memory_mb": 13065.7890625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.469,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602155.1110947,
+        "cpu_percent": 9.6,
+        "memory_mb": 13061.94140625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.618,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 9.6,
+      "power_consumption": 12.618
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.18250679969787598,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602155.1180956,
+        "cpu_percent": 0.0,
+        "memory_mb": 13061.94140625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.618,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602155.3071125,
+        "cpu_percent": 6.8,
+        "memory_mb": 13061.6484375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.568,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.8,
+      "power_consumption": 12.568
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.18410944938659668,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602155.3152356,
+        "cpu_percent": 6.2,
+        "memory_mb": 13061.6484375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 12.568,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602155.5053546,
+        "cpu_percent": 6.3,
+        "memory_mb": 13066.81640625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.48,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.3,
+      "power_consumption": 13.48
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.20399212837219238,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602155.5118608,
+        "cpu_percent": 0.0,
+        "memory_mb": 13066.81640625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.48,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602155.7208583,
+        "cpu_percent": 8.0,
+        "memory_mb": 13066.1484375,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.731,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 8.0,
+      "power_consumption": 13.731
+    },
+    {
+      "sample_id": "maze_000002",
+      "execution_time": 0.18390870094299316,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602155.7268698,
+        "cpu_percent": 0.0,
+        "memory_mb": 13065.9765625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.731,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602155.9167786,
+        "cpu_percent": 7.3,
+        "memory_mb": 13064.11328125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.778,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.3,
+      "power_consumption": 13.778
+    },
+    {
+      "sample_id": "maze_000000",
+      "execution_time": 0.181107759475708,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602155.9238114,
+        "cpu_percent": 6.2,
+        "memory_mb": 13064.61328125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.778,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602156.110914,
+        "cpu_percent": 6.2,
+        "memory_mb": 13064.5078125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.917,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 6.2,
+      "power_consumption": 13.917
+    },
+    {
+      "sample_id": "maze_000001",
+      "execution_time": 0.2039167881011963,
+      "success": false,
+      "pre_metrics": {
+        "timestamp": 1751602156.1179063,
+        "cpu_percent": 0.0,
+        "memory_mb": 13064.5078125,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.917,
+        "temperature_c": 35
+      },
+      "post_metrics": {
+        "timestamp": 1751602156.3273335,
+        "cpu_percent": 7.2,
+        "memory_mb": 13061.94140625,
+        "gpu_percent": 0,
+        "vram_used_mb": 1692.35546875,
+        "vram_total_mb": 6144.0,
+        "power_watts": 13.717,
+        "temperature_c": 35
+      },
+      "vram_delta": 0.0,
+      "gpu_utilization": 0,
+      "cpu_utilization": 7.2,
+      "power_consumption": 13.717
+    }
+  ],
+  "summary": {
+    "total_measurements": 50,
+    "success_rate": 0.0,
+    "execution_time": {
+      "min": 0.1773395538330078,
+      "max": 0.20399212837219238,
+      "mean": 0.18828930377960204,
+      "median": 0.18527960777282715
+    },
+    "vram_delta_mb": {
+      "min": -4.125,
+      "max": 0.0,
+      "mean": -0.0825,
+      "median": 0.0
+    },
+    "gpu_utilization": {
+      "min": 0,
+      "max": 1,
+      "mean": 0.1,
+      "median": 0
+    },
+    "cpu_utilization": {
+      "min": 6.0,
+      "max": 20.2,
+      "mean": 9.774,
+      "median": 8.0
+    },
+    "power_consumption": {
+      "min": 11.957,
+      "max": 17.165,
+      "mean": 13.40292,
+      "median": 13.694
+    }
+  },
+  "rtx3060_limits": {
+    "current_metrics": {
+      "timestamp": 1751602156.6940844,
+      "cpu_percent": 0.8,
+      "memory_mb": 13064.18359375,
+      "gpu_percent": 0,
+      "vram_used_mb": 1692.35546875,
+      "vram_total_mb": 6144.0,
+      "power_watts": 12.409,
+      "temperature_c": 35
+    },
+    "limits": {
+      "max_vram_mb": 6144,
+      "max_temp_c": 83,
+      "max_power_w": 170
+    },
+    "warnings": [],
+    "vram_utilization_percent": 27.5448481241862
+  },
+  "profiling_stats": {
+    "duration_seconds": 9.5,
+    "total_samples": 19,
+    "cpu_percent": {
+      "min": 0.0,
+      "max": 18.5,
+      "avg": 9.326315789473684,
+      "peak": 18.5
+    },
+    "memory_mb": {
+      "min": 13061.0703125,
+      "max": 13091.3515625,
+      "avg": 13068.200246710527,
+      "peak": 13091.3515625
+    },
+    "gpu_percent": {
+      "min": 0,
+      "max": 1,
+      "avg": 0.05263157894736842,
+      "peak": 1
+    },
+    "vram_used_mb": {
+      "min": 1692.35546875,
+      "max": 1696.48046875,
+      "avg": 1693.6581003289473,
+      "peak": 1696.48046875
+    },
+    "vram_total_mb": 6144.0,
+    "power_watts": {
+      "min": 12.02,
+      "max": 14.223,
+      "avg": 13.234684210526316,
+      "peak": 14.223
+    },
+    "temperature_c": {
+      "min": 35,
+      "max": 35,
+      "avg": 35.0,
+      "peak": 35
+    }
+  }
+}

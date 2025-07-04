@@ -293,7 +293,7 @@ class ACOCNNSolver:
             return random.choice(unvisited_neighbors)
         
         probabilities = [p / total_prob for p in probabilities]
-        return np.random.choice(unvisited_neighbors, p=probabilities)
+        return unvisited_neighbors[np.random.choice(len(unvisited_neighbors), p=probabilities)]
     
     def update_pheromone(self, pheromone_map: np.ndarray, ants: List[Ant], goal: Tuple[int, int]):
         """
