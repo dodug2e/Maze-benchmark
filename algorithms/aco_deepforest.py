@@ -1,31 +1,34 @@
 """
-ACO + Deep Forest 알고리즘 구현 (algorithms/aco_deepforest.py)
-미로 벤치마크용 - 랩 세미나 버전
-
-ACO (Ant Colony Optimization) + Deep Forest 하이브리드 접근법:
-1. Deep Forest가 미로의 지역적 특징을 학습하여 휴리스틱 정보 제공
-2. ACO가 페로몬 기반으로 경로 탐색 및 최적화
-3. Deep Forest는 CNN보다 메모리 효율적이고 해석가능
+ACO + Deep Forest 알고리즘 구현 (수정 버전)
+자료형 불일치 문제 해결 및 경로 통일
 """
-from algorithms import BaseAlgorithm
+
 import numpy as np
 import time
 from typing import List, Tuple, Optional, Dict, Any
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from PIL import Image
 import json
 import random
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import cross_val_score
-from sklearn.preprocessing import StandardScaler
-from scipy.ndimage import gaussian_filter
-import warnings
-warnings.filterwarnings('ignore')
+import logging
+from pathlib import Path
+import sys
+
+# 프로젝트 경로 추가
+sys.path.append('.')
+sys.path.append('..')
+
+try:
+    from algorithms.deep_forest_model import DeepForestModel
+except ImportError:
+    # 수정된 DeepForest 모델 import
+    from deep_forest_model import DeepForestModel
+
+logger = logging.getLogger(__name__)
 
 @dataclass
 class ACODeepForestResult:
-    """ACO + Deep Forest 알고리즘 실행 결과"""
+    """ACO + Deep Forest 알고리즘 실행 결과 (수정 버전)"""
     algorithm: str = "ACO+DeepForest"
     maze_id: str = ""
     maze_size: Tuple[int, int] = (0, 0)
@@ -39,263 +42,16 @@ class ACODeepForestResult:
     total_steps: int = 0
     max_steps: int = 0
     failure_reason: str = ""
-    path: List[Tuple[int, int]] = None
+    path: List[Tuple[int, int]] = field(default_factory=list)
     best_path_length: int = 0
     iterations: int = 0
     convergence_iteration: int = 0
     forest_training_time: float = 0.0
-    feature_importance: Dict[str, float] = None
+    feature_importance: Dict[str, float] = field(default_factory=dict)
 
-class DeepForestFeatureExtractor:
-    """Deep Forest 기반 미로 특징 추출기"""
-    
-    def __init__(self, 
-                 n_estimators: int = 100,
-                 n_layers: int = 3,
-                 window_size: int = 5):
-        """
-        초기화
-        Args:
-            n_estimators: 각 포레스트의 트리 개수
-            n_layers: Deep Forest 레이어 수
-            window_size: 특징 추출 윈도우 크기
-        """
-        self.n_estimators = n_estimators
-        self.n_layers = n_layers
-        self.window_size = window_size
-        self.scaler = StandardScaler()
-        
-        # 각 레이어의 포레스트들
-        self.forests = []
-        for layer in range(n_layers):
-            layer_forests = {
-                'rf': RandomForestClassifier(n_estimators=n_estimators, 
-                                           random_state=42 + layer,
-                                           n_jobs=-1),
-                'et': ExtraTreesClassifier(n_estimators=n_estimators,
-                                         random_state=42 + layer,
-                                         n_jobs=-1)
-            }
-            self.forests.append(layer_forests)
-        
-        self.is_trained = False
-        self.feature_importance_ = {}
-        
-    def extract_local_features(self, maze: np.ndarray, pos: Tuple[int, int]) -> np.ndarray:
-        """
-        지역 특징 추출
-        Args:
-            maze: 미로 배열
-            pos: 현재 위치
-        Returns:
-            특징 벡터
-        """
-        rows, cols = maze.shape
-        r, c = pos
-        w = self.window_size // 2
-        
-        # 윈도우 영역 추출 (패딩 적용)
-        window = np.ones((self.window_size, self.window_size))  # 기본값: 벽
-        
-        for i in range(self.window_size):
-            for j in range(self.window_size):
-                maze_r = r - w + i
-                maze_c = c - w + j
-                
-                if 0 <= maze_r < rows and 0 <= maze_c < cols:
-                    window[i, j] = maze[maze_r, maze_c]
-        
-        # 기본 특징들
-        features = []
-        
-        # 1. 윈도우 내 벽의 비율
-        wall_ratio = np.sum(window == 1) / (self.window_size * self.window_size)
-        features.append(wall_ratio)
-        
-        # 2. 중심으로부터의 거리별 벽 밀도
-        center = self.window_size // 2
-        for radius in range(1, center + 1):
-            mask = np.zeros_like(window)
-            for i in range(self.window_size):
-                for j in range(self.window_size):
-                    if abs(i - center) + abs(j - center) == radius:  # 맨하탄 거리
-                        mask[i, j] = 1
-            
-            if np.sum(mask) > 0:
-                density = np.sum((window == 1) & (mask == 1)) / np.sum(mask)
-                features.append(density)
-        
-        # 3. 방향별 벽 개수
-        directions = [
-            window[:center, center],      # 위
-            window[center+1:, center],    # 아래
-            window[center, :center],      # 왼쪽
-            window[center, center+1:]     # 오른쪽
-        ]
-        
-        for direction in directions:
-            wall_count = np.sum(direction == 1)
-            features.append(wall_count)
-        
-        # 4. 대각선 방향별 벽 개수
-        diagonals = [
-            np.diag(window),                    # 주대각선
-            np.diag(np.fliplr(window))         # 반대각선
-        ]
-        
-        for diagonal in diagonals:
-            wall_count = np.sum(diagonal == 1)
-            features.append(wall_count)
-        
-        # 5. 윈도우의 연결성 (connected components)
-        # 간단한 연결성 측정: 4방향 연결된 빈 공간의 개수
-        empty_spaces = (window == 0).astype(int)
-        connectivity = np.sum(empty_spaces)
-        features.append(connectivity)
-        
-        # 6. 엔트로피 (불확실성 측정)
-        if np.sum(window == 0) > 0 and np.sum(window == 1) > 0:
-            p0 = np.sum(window == 0) / (self.window_size * self.window_size)
-            p1 = np.sum(window == 1) / (self.window_size * self.window_size)
-            entropy = -p0 * np.log2(p0) - p1 * np.log2(p1)
-        else:
-            entropy = 0.0
-        features.append(entropy)
-        
-        return np.array(features)
-    
-    def generate_training_data(self, maze: np.ndarray, 
-                             start: Tuple[int, int], 
-                             goal: Tuple[int, int]) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        훈련 데이터 생성
-        Args:
-            maze: 미로 배열
-            start: 시작점
-            goal: 목표점
-        Returns:
-            특징 행렬, 레이블 벡터
-        """
-        rows, cols = maze.shape
-        features = []
-        labels = []
-        
-        # 모든 빈 공간에 대해 특징 추출
-        for r in range(rows):
-            for c in range(cols):
-                if maze[r, c] == 0:  # 빈 공간만
-                    feature = self.extract_local_features(maze, (r, c))
-                    features.append(feature)
-                    
-                    # 레이블: 목표점까지의 맨하탄 거리의 역수 (가까울수록 높은 값)
-                    distance = abs(r - goal[0]) + abs(c - goal[1])
-                    label = 1.0 / (distance + 1)  # 0이 되지 않도록 +1
-                    labels.append(label)
-        
-        features = np.array(features)
-        labels = np.array(labels)
-        
-        # 레이블을 분류 문제로 변환 (상위 25%를 1, 나머지를 0)
-        threshold = np.percentile(labels, 75)
-        binary_labels = (labels >= threshold).astype(int)
-        
-        return features, binary_labels
-    
-    def train(self, maze: np.ndarray, start: Tuple[int, int], goal: Tuple[int, int]):
-        """
-        Deep Forest 훈련
-        Args:
-            maze: 미로 배열
-            start: 시작점
-            goal: 목표점
-        """
-        # 훈련 데이터 생성
-        X, y = self.generate_training_data(maze, start, goal)
-        
-        if len(X) == 0:
-            raise ValueError("훈련 데이터를 생성할 수 없습니다")
-        
-        # 특징 정규화
-        X = self.scaler.fit_transform(X)
-        
-        # Deep Forest 훈련
-        layer_input = X.copy()
-        
-        for layer_idx, layer_forests in enumerate(self.forests):
-            layer_predictions = []
-            
-            # 각 포레스트 훈련
-            for forest_name, forest in layer_forests.items():
-                forest.fit(layer_input, y)
-                
-                # 확률 예측
-                if hasattr(forest, 'predict_proba'):
-                    proba = forest.predict_proba(layer_input)
-                    if proba.shape[1] == 2:  # 이진 분류
-                        layer_predictions.append(proba[:, 1])
-                    else:
-                        layer_predictions.append(proba[:, 0])
-                else:
-                    pred = forest.predict(layer_input)
-                    layer_predictions.append(pred)
-            
-            # 다음 레이어를 위한 입력 준비
-            if layer_idx < len(self.forests) - 1:
-                layer_output = np.column_stack(layer_predictions)
-                layer_input = np.column_stack([layer_input, layer_output])
-        
-        # 특징 중요도 계산 (마지막 레이어 기준)
-        last_layer = self.forests[-1]
-        for forest_name, forest in last_layer.items():
-            if hasattr(forest, 'feature_importances_'):
-                self.feature_importance_[forest_name] = forest.feature_importances_
-        
-        self.is_trained = True
-    
-    def predict_heuristic(self, maze: np.ndarray, pos: Tuple[int, int]) -> float:
-        """
-        위치에 대한 휴리스틱 값 예측
-        Args:
-            maze: 미로 배열
-            pos: 위치
-        Returns:
-            휴리스틱 값 (0-1)
-        """
-        if not self.is_trained:
-            return 0.5  # 기본값
-        
-        # 특징 추출
-        features = self.extract_local_features(maze, pos).reshape(1, -1)
-        features = self.scaler.transform(features)
-        
-        # Deep Forest 예측
-        layer_input = features.copy()
-        
-        for layer_idx, layer_forests in enumerate(self.forests):
-            layer_predictions = []
-            
-            for forest_name, forest in layer_forests.items():
-                if hasattr(forest, 'predict_proba'):
-                    proba = forest.predict_proba(layer_input)
-                    if proba.shape[1] == 2:
-                        layer_predictions.append(proba[:, 1])
-                    else:
-                        layer_predictions.append(proba[:, 0])
-                else:
-                    pred = forest.predict(layer_input)
-                    layer_predictions.append(pred)
-            
-            # 다음 레이어를 위한 입력 준비
-            if layer_idx < len(self.forests) - 1:
-                layer_output = np.column_stack(layer_predictions)
-                layer_input = np.column_stack([layer_input, layer_output])
-        
-        # 최종 예측값 (모든 포레스트의 평균)
-        final_predictions = np.array([pred[0] for pred in layer_predictions])
-        return np.mean(final_predictions)
 
 class Ant:
-    """개미 클래스"""
+    """개미 클래스 (자료형 통일)"""
     
     def __init__(self, start_pos: Tuple[int, int]):
         self.start_pos = start_pos
@@ -303,128 +59,142 @@ class Ant:
         self.path = [start_pos]
         self.visited = {start_pos}
         self.path_length = 0
-        self.is_alive = True
-        
+        self.stuck = False
+    
     def reset(self):
-        """개미 상태 리셋"""
+        """개미 상태 초기화"""
         self.current_pos = self.start_pos
         self.path = [self.start_pos]
         self.visited = {self.start_pos}
         self.path_length = 0
-        self.is_alive = True
-        
-    def move(self, new_pos: Tuple[int, int]):
-        """개미 이동"""
-        if self.is_alive:
+        self.stuck = False
+    
+    def move_to(self, new_pos: Tuple[int, int]) -> bool:
+        """새 위치로 이동"""
+        if new_pos not in self.visited:
             self.current_pos = new_pos
             self.path.append(new_pos)
             self.visited.add(new_pos)
             self.path_length += 1
+            return True
+        return False
+
 
 class ACODeepForestSolver:
-    """ACO + Deep Forest 하이브리드 미로 해결기"""
+    """ACO + Deep Forest 하이브리드 솔버 (수정 버전)"""
     
     def __init__(self, 
                  n_ants: int = 20,
-                 n_iterations: int = 100,
-                 alpha: float = 1.0,      # 페로몬 가중치
-                 beta: float = 2.0,       # 휴리스틱 가중치
-                 gamma: float = 1.5,      # Deep Forest 휴리스틱 가중치
-                 rho: float = 0.1,        # 페로몬 증발률
-                 Q: float = 100.0,        # 페로몬 강도
-                 n_estimators: int = 50,  # 포레스트 크기
-                 n_layers: int = 2):      # Deep Forest 레이어 수
+                 n_iterations: int = 50,
+                 alpha: float = 1.0,
+                 beta: float = 2.0,
+                 rho: float = 0.5,
+                 Q: float = 100.0,
+                 n_estimators: int = 30,
+                 n_layers: int = 2):
         """
         초기화
+        
         Args:
-            n_ants: 개미 개수
+            n_ants: 개미 수
             n_iterations: 반복 횟수
-            alpha: 페로몬 가중치
-            beta: 거리 기반 휴리스틱 가중치
-            gamma: Deep Forest 휴리스틱 가중치
+            alpha: 페로몬 중요도
+            beta: 휴리스틱 중요도
             rho: 페로몬 증발률
             Q: 페로몬 강도
-            n_estimators: 각 포레스트의 트리 개수
+            n_estimators: Deep Forest 트리 개수
             n_layers: Deep Forest 레이어 수
         """
         self.n_ants = n_ants
         self.n_iterations = n_iterations
         self.alpha = alpha
         self.beta = beta
-        self.gamma = gamma
         self.rho = rho
         self.Q = Q
         
-        # Deep Forest 특징 추출기
-        self.deep_forest = DeepForestFeatureExtractor(
+        # Deep Forest 모델 (자료형 통일)
+        self.deep_forest = DeepForestModel(
+            n_layers=n_layers,
             n_estimators=n_estimators,
-            n_layers=n_layers
+            max_depth=8,  # RTX 3060 최적화
+            random_state=42
         )
         
-        # 방향벡터 (상, 하, 좌, 우)
-        self.directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        # 자료형 통일
+        self.dtype = np.float32
         
-    def euclidean_distance(self, pos1: Tuple[int, int], pos2: Tuple[int, int]) -> float:
-        """유클리드 거리 계산"""
-        return np.sqrt((pos1[0] - pos2[0])**2 + (pos1[1] - pos2[1])**2)
+        logger.info(f"ACO+DeepForest 초기화: {n_ants}개미, {n_iterations}반복, dtype={self.dtype}")
     
-    def get_valid_neighbors(self, pos: Tuple[int, int], maze: np.ndarray) -> List[Tuple[int, int]]:
-        """유효한 이웃 위치들 반환"""
+    def _get_neighbors(self, pos: Tuple[int, int], maze: np.ndarray, 
+                      visited: set) -> List[Tuple[int, int]]:
+        """유효한 이웃 위치 반환"""
         neighbors = []
-        rows, cols = maze.shape
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # 상, 하, 좌, 우
         
-        for dx, dy in self.directions:
-            new_x, new_y = pos[0] + dx, pos[1] + dy
+        for dy, dx in directions:
+            new_y, new_x = pos[0] + dy, pos[1] + dx
             
-            if (0 <= new_x < rows and 0 <= new_y < cols and 
-                maze[new_x, new_y] == 0):
-                neighbors.append((new_x, new_y))
-                
+            if (0 <= new_y < maze.shape[0] and 
+                0 <= new_x < maze.shape[1] and
+                maze[new_y, new_x] == 0 and  # 통로
+                (new_y, new_x) not in visited):
+                neighbors.append((new_y, new_x))
+        
         return neighbors
     
-    def calculate_transition_probability(self, 
-                                       current_pos: Tuple[int, int],
-                                       next_pos: Tuple[int, int],
+    def calculate_transition_probability(self, current_pos: Tuple[int, int],
+                                       neighbor: Tuple[int, int],
                                        goal: Tuple[int, int],
                                        pheromone_map: np.ndarray,
                                        maze: np.ndarray,
-                                       valid_neighbors: List[Tuple[int, int]]) -> float:
-        """
-        전이 확률 계산 (ACO + Deep Forest 하이브리드)
-        """
-        # 페로몬 강도
-        pheromone = pheromone_map[next_pos[0], next_pos[1]]
+                                       all_neighbors: List[Tuple[int, int]]) -> float:
+        """전이 확률 계산 (Deep Forest 휴리스틱 포함)"""
         
-        # 거리 기반 휴리스틱
-        distance_heuristic = 1.0 / (self.euclidean_distance(next_pos, goal) + 1e-8)
+        # 페로몬 정보
+        pheromone = pheromone_map[neighbor[0], neighbor[1]]
         
-        # Deep Forest 휴리스틱
-        df_heuristic = self.deep_forest.predict_heuristic(maze, next_pos)
+        # Deep Forest 휴리스틱 (훈련된 경우만)
+        if self.deep_forest.is_trained:
+            try:
+                direction_probs = self.deep_forest.get_direction_probabilities(
+                    maze, current_pos, goal
+                )
+                
+                # 방향 매핑
+                dy = neighbor[0] - current_pos[0]
+                dx = neighbor[1] - current_pos[1]
+                
+                if dy == -1:
+                    direction_idx = 0  # 위
+                elif dy == 1:
+                    direction_idx = 1  # 아래
+                elif dx == -1:
+                    direction_idx = 2  # 왼쪽
+                else:  # dx == 1
+                    direction_idx = 3  # 오른쪽
+                
+                heuristic = float(direction_probs[direction_idx])
+                
+            except Exception as e:
+                logger.warning(f"Deep Forest 휴리스틱 계산 실패: {e}")
+                # 맨하탄 거리 기반 휴리스틱으로 대체
+                heuristic = 1.0 / (1.0 + abs(neighbor[0] - goal[0]) + abs(neighbor[1] - goal[1]))
+        else:
+            # 맨하탄 거리 기반 휴리스틱
+            heuristic = 1.0 / (1.0 + abs(neighbor[0] - goal[0]) + abs(neighbor[1] - goal[1]))
         
-        # 분자 계산
-        numerator = (pheromone ** self.alpha) * (distance_heuristic ** self.beta) * (df_heuristic ** self.gamma)
+        # 전이 확률 계산
+        if pheromone == 0 and heuristic == 0:
+            return 0.0
         
-        # 분모 계산
-        denominator = 0.0
-        for neighbor in valid_neighbors:
-            p = pheromone_map[neighbor[0], neighbor[1]]
-            h = 1.0 / (self.euclidean_distance(neighbor, goal) + 1e-8)
-            d = self.deep_forest.predict_heuristic(maze, neighbor)
-            denominator += (p ** self.alpha) * (h ** self.beta) * (d ** self.gamma)
-        
-        if denominator == 0:
-            return 1.0 / len(valid_neighbors)
-        
-        return numerator / denominator
+        probability = (pheromone ** self.alpha) * (heuristic ** self.beta)
+        return float(probability)
     
-    def select_next_position(self, 
-                           ant: Ant,
-                           maze: np.ndarray,
-                           goal: Tuple[int, int],
-                           pheromone_map: np.ndarray) -> Optional[Tuple[int, int]]:
+    def select_next_position(self, ant: Ant, goal: Tuple[int, int],
+                           pheromone_map: np.ndarray, maze: np.ndarray) -> Optional[Tuple[int, int]]:
         """다음 위치 선택 (룰렛 휠 선택)"""
-        valid_neighbors = self.get_valid_neighbors(ant.current_pos, maze)
-        unvisited_neighbors = [pos for pos in valid_neighbors if pos not in ant.visited]
+        
+        unvisited_neighbors = self._get_neighbors(ant.current_pos, maze, ant.visited)
         
         if not unvisited_neighbors:
             return None
@@ -442,9 +212,16 @@ class ACODeepForestSolver:
         if total_prob == 0:
             return random.choice(unvisited_neighbors)
         
+        # 확률 정규화
         probabilities = [p / total_prob for p in probabilities]
-        return unvisited_neighbors[np.random.choice(len(unvisited_neighbors), p=probabilities)]
-
+        
+        # numpy를 사용한 선택
+        try:
+            choice_idx = np.random.choice(len(unvisited_neighbors), p=probabilities)
+            return unvisited_neighbors[choice_idx]
+        except Exception:
+            # 예외 발생시 랜덤 선택
+            return random.choice(unvisited_neighbors)
     
     def update_pheromone(self, pheromone_map: np.ndarray, ants: List[Ant], goal: Tuple[int, int]):
         """페로몬 업데이트"""
@@ -453,7 +230,7 @@ class ACODeepForestSolver:
         
         # 각 개미의 경로에 페로몬 추가
         for ant in ants:
-            if ant.current_pos == goal:
+            if ant.current_pos == goal and len(ant.path) > 1:
                 pheromone_strength = self.Q / ant.path_length
                 for pos in ant.path:
                     pheromone_map[pos[0], pos[1]] += pheromone_strength
@@ -468,13 +245,16 @@ class ACODeepForestSolver:
         result.maze_size = maze.shape
         result.max_steps = max_steps
         
+        # 자료형 통일
+        maze = maze.astype(self.dtype)
+        
         # 시작점이나 목표점이 벽인 경우
-        if maze[start[0], start[1]] == 0:
+        if maze[start[0], start[1]] == 1:
             result.failure_reason = "시작점이 벽입니다"
             result.execution_time = time.time() - start_time
             return result
         
-        if maze[goal[0], goal[1]] == 0:
+        if maze[goal[0], goal[1]] == 1:
             result.failure_reason = "목표점이 벽입니다"
             result.execution_time = time.time() - start_time
             return result
@@ -484,104 +264,112 @@ class ACODeepForestSolver:
         try:
             self.deep_forest.train(maze, start, goal)
             result.forest_training_time = time.time() - forest_start
-            result.feature_importance = self.deep_forest.feature_importance_
+            result.feature_importance = {"deep_forest_trained": True}
         except Exception as e:
+            logger.warning(f"Deep Forest 훈련 실패: {e}")
             result.failure_reason = f"Deep Forest 훈련 실패: {e}"
             result.execution_time = time.time() - start_time
             return result
         
         # 초기화
         rows, cols = maze.shape
-        pheromone_map = np.ones((rows, cols)) * 0.1
-        
-        # 개미들 초기화
-        ants = [Ant(start) for _ in range(self.n_ants)]
+        pheromone_map = np.ones((rows, cols), dtype=self.dtype)
         
         best_path = None
-        best_path_length = float('inf')
-        convergence_iteration = 0
-        total_steps = 0
+        best_length = float('inf')
         
-        # ACO 메인 루프
+        # ACO 반복
         for iteration in range(self.n_iterations):
-            # 각 개미 이동
+            # 개미들 초기화
+            ants = [Ant(start) for _ in range(self.n_ants)]
+            
+            # 각 개미가 경로 탐색
             for ant in ants:
-                ant.reset()
-                
-                while ant.is_alive and ant.current_pos != goal and total_steps < max_steps:
-                    total_steps += 1
-                    
-                    next_pos = self.select_next_position(ant, maze, goal, pheromone_map)
+                steps = 0
+                while ant.current_pos != goal and steps < max_steps // self.n_ants:
+                    next_pos = self.select_next_position(ant, goal, pheromone_map, maze)
                     
                     if next_pos is None:
-                        ant.is_alive = False
+                        ant.stuck = True
                         break
                     
-                    ant.move(next_pos)
-                    
-                    if len(ant.path) > rows * cols:
-                        ant.is_alive = False
-                        break
+                    ant.move_to(next_pos)
+                    steps += 1
                 
                 # 최적 경로 업데이트
-                if ant.current_pos == goal and ant.path_length < best_path_length:
+                if ant.current_pos == goal and ant.path_length < best_length:
                     best_path = ant.path.copy()
-                    best_path_length = ant.path_length
-                    convergence_iteration = iteration
+                    best_length = ant.path_length
+                    result.convergence_iteration = iteration
             
             # 페로몬 업데이트
             self.update_pheromone(pheromone_map, ants, goal)
             
-            if total_steps >= max_steps:
-                break
+            # 조기 종료 조건
+            if best_path is not None and iteration > 10:
+                successful_ants = sum(1 for ant in ants if ant.current_pos == goal)
+                if successful_ants >= self.n_ants * 0.8:  # 80% 이상 성공시
+                    break
         
         # 결과 설정
+        result.iterations = iteration + 1
+        
         if best_path is not None:
             result.solution_found = True
             result.path = best_path
             result.solution_length = len(best_path)
-            result.best_path_length = best_path_length
+            result.best_path_length = best_length
+            result.total_steps = sum(len(ant.path) for ant in ants)
         else:
-            result.failure_reason = "해결책을 찾을 수 없습니다"
+            result.failure_reason = "해결책을 찾지 못했습니다"
+            result.total_steps = max_steps
         
-        result.total_steps = total_steps
-        result.iterations = iteration + 1
-        result.convergence_iteration = convergence_iteration
         result.execution_time = time.time() - start_time
-        
         return result
 
-def load_maze_from_image(image_path: str) -> np.ndarray:
-    """이미지에서 미로 배열 로드"""
+
+# 유틸리티 함수들 (경로 통일)
+def load_maze_from_image(img_path: str) -> np.ndarray:
+    """이미지에서 미로 로드 (자료형 통일)"""
     try:
-        img = Image.open(image_path).convert('L')
-        maze = np.array(img)
-        maze = (maze < 128).astype(np.uint8)
+        img = Image.open(img_path).convert("L")
+        maze = (np.asarray(img, dtype=np.float32) < 128).astype(np.float32)
         return maze
     except Exception as e:
         raise ValueError(f"이미지 로드 실패: {e}")
 
 def load_metadata(metadata_path: str) -> Dict[str, Any]:
-    """메타데이터 JSON 파일 로드"""
+    """메타데이터 로드"""
     try:
         with open(metadata_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            metadata = json.load(f)
+        
+        # 키 정규화
+        if 'entrance' in metadata and 'start' not in metadata:
+            metadata['start'] = metadata['entrance']
+        if 'exit' in metadata and 'goal' not in metadata:
+            metadata['goal'] = metadata['exit']
+        elif 'exit_point' in metadata and 'goal' not in metadata:
+            metadata['goal'] = metadata['exit_point']
+            
+        return metadata
     except Exception as e:
         raise ValueError(f"메타데이터 로드 실패: {e}")
 
 def run_aco_deepforest_benchmark(sample_id: str, subset: str = "test",
                                 n_ants: int = 20, n_iterations: int = 50) -> ACODeepForestResult:
     """
-    ACO + Deep Forest 벤치마크 실행
+    ACO + Deep Forest 벤치마크 실행 (경로 통일)
     """
-    base_path = f"datasets/{subset}"
-    img_path = f"{base_path}/img/{sample_id}.png"
-    metadata_path = f"{base_path}/metadata/{sample_id}.json"
+    # 경로 통일
+    base_path = Path("datasets") / subset
+    img_path = base_path / "img" / f"{sample_id}.png"  # 통일된 경로
+    metadata_path = base_path / "metadata" / f"{sample_id}.json"
     
     try:
         # 데이터 로드
-        maze = load_maze_from_image(img_path)
-        metadata = load_metadata(metadata_path)
+        maze = load_maze_from_image(str(img_path))
+        metadata = load_metadata(str(metadata_path))
         
         # 시작점과 목표점 추출
         start = tuple(metadata['start'])
@@ -602,26 +390,25 @@ def run_aco_deepforest_benchmark(sample_id: str, subset: str = "test",
         result.failure_reason = f"실행 오류: {e}"
         return result
 
+
 # 테스트 및 예제 실행
 if __name__ == "__main__":
-    # 테스트 미로
+    # 간단한 테스트 미로
     test_maze = np.array([
-        [0, 0, 0, 1, 0, 0, 0, 0, 0],
-        [1, 1, 0, 1, 0, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 1, 0, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ])
+        [1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1, 0, 0, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 0, 0, 1, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1]
+    ], dtype=np.float32)
     
-    start = (0, 0)
-    goal = (8, 8)
+    start = (1, 1)
+    goal = (5, 7)
     
     print("ACO + Deep Forest 테스트 실행 중...")
-    solver = ACODeepForestSolver(n_ants=15, n_iterations=30, n_estimators=30, n_layers=2)
+    solver = ACODeepForestSolver(n_ants=15, n_iterations=30, n_estimators=20, n_layers=2)
     result = solver.solve(test_maze, start, goal)
     
     print(f"해결 성공: {result.solution_found}")
@@ -634,52 +421,8 @@ if __name__ == "__main__":
     
     if result.solution_found:
         print("경로 (처음 10개):", result.path[:10])
-    
-    if result.feature_importance:
-        print("특징 중요도:", result.feature_importance)
+        print("경로 (마지막 5개):", result.path[-5:])
+    else:
+        print(f"실패 원인: {result.failure_reason}")
         
-# 2. Add to aco_deepforest.py at the end:
-
-from algorithms import BaseAlgorithm
-
-class ACODeepForestAlgorithm(BaseAlgorithm):
-    """ACO+DeepForest 알고리즘 래퍼 클래스"""
-    
-    def __init__(self, name: str = "ACO+DeepForest"):
-        super().__init__(name)
-        self.solver = None
-    
-    def configure(self, config: dict):
-        """알고리즘 설정"""
-        super().configure(config)
-        
-        self.solver = ACODeepForestSolver(
-            n_ants=config.get('num_ants', 20),
-            n_iterations=config.get('max_iterations', 100),
-            n_estimators=config.get('forest_estimators', 50),
-            n_layers=config.get('n_layers', 2)
-        )
-    
-    def solve(self, maze_array, metadata):
-        """미로 해결"""
-        if self.solver is None:
-            self.configure({})
-        
-        start = tuple(metadata.get('entrance', (0, 0)))
-        goal = tuple(metadata.get('exit', (maze_array.shape[0]-1, maze_array.shape[1]-1)))
-        
-        result = self.solver.solve(maze_array, start, goal)
-        
-        return {
-            'success': result.solution_found,
-            'solution_path': result.path if result.solution_found else [],
-            'solution_length': result.solution_length,
-            'execution_time': result.execution_time,
-            'additional_info': {
-                'iterations': result.iterations,
-                'convergence_iteration': result.convergence_iteration,
-                'total_steps': result.total_steps,
-                'failure_reason': result.failure_reason,
-                'forest_training_time': result.forest_training_time
-            }
-        }
+    print("테스트 완료!")
