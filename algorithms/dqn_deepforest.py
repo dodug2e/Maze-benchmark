@@ -325,7 +325,7 @@ class MazeEnvironment:
 
     def _valid(self, pos):
         r, c = pos
-        return 0 <= r < self.rows and 0 <= c < self.cols and self.maze[r, c] == 0
+        return 0 <= r < self.rows and 0 <= c < self.cols and self.maze[r, c] == 1  # ✅ 수정됨!
 
     def step(self, action: int):
         self.steps += 1
@@ -492,11 +492,11 @@ class DQNDeepForestSolver:
     ) -> DQNDeepForestResult:
         t0 = time.time()
         res = DQNDeepForestResult(maze_id=maze_id or "", maze_size=maze.shape)
-        if maze[start] == 1:
+        if maze[start] == 0:
             res.failure_reason = "시작점이 벽입니다"
             res.execution_time = time.time() - t0
             return res
-        if maze[goal] == 1:
+        if maze[goal] == 0:
             res.failure_reason = "목표점이 벽입니다"
             res.execution_time = time.time() - t0
             return res

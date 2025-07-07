@@ -1,0 +1,6 @@
+2025-07-04 20:20:47,151 - utils.profiler - INFO - GPU 감지: NVIDIA GeForce RTX 3060 Laptop GPU
+2025-07-04 20:20:47,181 - __main__ - INFO - RTX 3060 상태 체크:
+2025-07-04 20:20:47,182 - __main__ - INFO -   VRAM 사용률: 12.5%
+2025-07-04 20:20:47,182 - __main__ - INFO - 단일 미로 DQN 학습 시작: 000001
+2025-07-04 20:20:47,182 - __main__ - ERROR - DQN 학습 실행 중 오류: 'MazeDataLoader' object has no attribute 'load_maze_as_array'
+2025-07-04 20:20:47,183 - __main__ - ERROR - 실행 중 오류 발생: 'MazeDataLoader' object has no attribute 'load_maze_as_array'

@@ -1,0 +1,40 @@
+{
+  "optimal_solutions": {},
+  "performance_metrics": {
+    "total_mazes": 100,
+    "successful_mazes": 100,
+    "success_rate": 1.0,
+    "avg_execution_time": 0.011010661125183105,
+    "std_execution_time": 0.008576397261842063,
+    "avg_solution_length": 1368.4,
+    "std_solution_length": 1517.6136398965316,
+    "min_execution_time": 0.0010051727294921875,
+    "max_execution_time": 0.035398244857788086,
+    "avg_vram_usage": 1066.226796875,
+    "avg_cpu_usage": 31.76666666666667
+  },
+  "size_scaling": {
+    "medium": {
+      "avg_execution_time": 0.004460287094116211,
+      "avg_solution_length": 643.8,
+      "success_rate": 1.0,
+      "avg_cells": 5679.4,
+      "sample_count": 5
+    },
+    "large": {
+      "avg_execution_time": 0.007456731796264648,
+      "avg_solution_length": 991.4,
+      "success_rate": 1.0,
+      "avg_cells": 13954.6,
+      "sample_count": 5
+    },
+    "xlarge": {
+      "avg_execution_time": 0.018811893463134766,
+      "avg_solution_length": 2325.4,
+      "success_rate": 1.0,
+      "avg_cells": 29381.8,
+      "sample_count": 5
+    }
+  },
+  "memory_usage": {}
+}
