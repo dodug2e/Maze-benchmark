@@ -228,6 +228,195 @@ class MazeDataLoader:
         
         logger.info(f"Found {len(valid_ids)} valid samples out of {len(all_ids)} in {subset}")
         return valid_ids
+    
+    def batch_load_samples(self, sample_ids: list, subset: str = "train") -> list:
+        """
+        배치로 샘플들 로드
+        
+        Args:
+            sample_ids: 로드할 샘플 ID 목록
+            subset: 데이터셋 분할 ("train", "valid", "test")
+            
+        Returns:
+            list: 로드된 샘플 딕셔너리 목록
+        """
+        samples = []
+        failed_count = 0
+        
+        logger.info(f"Loading {len(sample_ids)} samples from {subset} subset...")
+        
+        for i, sample_id in enumerate(sample_ids):
+            try:
+                # 개별 샘플 로드
+                img, metadata, array = self.load_sample(sample_id, subset)
+                
+                # 샘플 딕셔너리 생성
+                sample_dict = {
+                    'id': sample_id,
+                    'image': img,
+                    'metadata': metadata,
+                    'array': array
+                }
+                
+                samples.append(sample_dict)
+                
+                # 진행 상황 로그 (100개마다)
+                if (i + 1) % 100 == 0:
+                    logger.info(f"Loaded {i + 1}/{len(sample_ids)} samples ({(i + 1)/len(sample_ids)*100:.1f}%)")
+                
+            except Exception as e:
+                logger.error(f"Failed to load sample {sample_id}: {e}")
+                failed_count += 1
+                continue
+        
+        logger.info(f"Batch loading completed: {len(samples)} successful, {failed_count} failed")
+        
+        if not samples:
+            raise RuntimeError("No samples could be loaded successfully")
+        
+        return samples
+    
+    def get_sample_ids(self, subset: str = "train") -> list:
+        """
+        지정된 서브셋의 모든 샘플 ID 반환
+        
+        Args:
+            subset: 데이터셋 분할 ("train", "valid", "test")
+            
+        Returns:
+            list: 샘플 ID 목록 (문자열)
+        """
+        if subset not in ["train", "valid", "test"]:
+            raise ValueError(f"Invalid subset: {subset}")
+        
+        subset_path = self.dataset_root / subset
+        img_dir = subset_path / "img"
+        
+        if not img_dir.exists():
+            logger.warning(f"Image directory not found: {img_dir}")
+            return []
+        
+        # PNG 파일 찾기
+        png_files = list(img_dir.glob("*.png"))
+        
+        # 파일명에서 확장자 제거하여 ID 추출
+        sample_ids = [f.stem for f in png_files]
+        
+        # 정렬 (숫자 순서)
+        sample_ids.sort()
+        
+        logger.info(f"Found {len(sample_ids)} samples in {subset} subset")
+        return sample_ids
+    
+    def verify_sample(self, sample_id: str, subset: str = "train") -> bool:
+        """
+        샘플의 유효성 검사
+        
+        Args:
+            sample_id: 샘플 ID
+            subset: 데이터셋 분할
+            
+        Returns:
+            bool: 유효하면 True
+        """
+        try:
+            subset_path = self.dataset_root / subset
+            
+            # 필수 파일 존재 확인
+            img_path = subset_path / "img" / f"{sample_id}.png"
+            meta_path = subset_path / "metadata" / f"{sample_id}.json"
+            
+            if not img_path.exists():
+                return False
+            
+            if not meta_path.exists():
+                return False
+            
+            # 메타데이터 유효성 확인
+            with open(meta_path, 'r') as f:
+                metadata = json.load(f)
+            
+            # 필수 필드 확인
+            required_fields = ['entrance', 'exit', 'size']
+            for field in required_fields:
+                if field not in metadata:
+                    return False
+            
+            return True
+            
+        except Exception as e:
+            logger.debug(f"Sample {sample_id} verification failed: {e}")
+            return False
+    
+    def get_valid_sample_ids(self, subset: str = "train", max_samples: int = None) -> list:
+        """
+        유효한 샘플 ID들만 반환
+        
+        Args:
+            subset: 데이터셋 분할
+            max_samples: 최대 샘플 수 (None이면 모든 샘플)
+            
+        Returns:
+            list: 유효한 샘플 ID 목록
+        """
+        all_ids = self.get_sample_ids(subset)
+        valid_ids = []
+        
+        logger.info(f"Validating {len(all_ids)} samples in {subset} subset...")
+        
+        for sample_id in all_ids:
+            if self.verify_sample(sample_id, subset):
+                valid_ids.append(sample_id)
+            
+            if max_samples and len(valid_ids) >= max_samples:
+                break
+        
+        logger.info(f"Found {len(valid_ids)} valid samples out of {len(all_ids)} in {subset}")
+        return valid_ids
+    
+    def get_maze_size(self, sample_id: str, subset: str = "train") -> tuple:
+        """
+        미로 크기 반환 (height, width)
+        
+        Args:
+            sample_id: 샘플 ID
+            subset: 데이터셋 분할
+            
+        Returns:
+            tuple: (height, width)
+        """
+        try:
+            img, _, _ = self.load_sample(sample_id, subset)
+            return img.size[::-1]  # PIL은 (width, height) 반환하므로 뒤집기
+        except Exception as e:
+            logger.error(f"Failed to get maze size for {sample_id}: {e}")
+            return (0, 0)
+    
+    def convert_image_to_array(self, image: Image.Image) -> np.ndarray:
+        """
+        PIL 이미지를 NumPy 배열로 변환
+        
+        Args:
+            image: PIL 이미지
+            
+        Returns:
+            np.ndarray: 미로 배열 (0: 벽, 1: 통로)
+        """
+        try:
+            # 그레이스케일로 변환
+            gray_image = image.convert('L')
+            
+            # NumPy 배열로 변환
+            array = np.array(gray_image)
+            
+            # 이진화: 검은색(0-127)은 벽(0), 흰색(128-255)은 통로(1)
+            binary_array = (array > 127).astype(np.uint8)
+            
+            return binary_array
+            
+        except Exception as e:
+            logger.error(f"Failed to convert image to array: {e}")
+            raise
 
 
 # 전역 로더 인스턴스
