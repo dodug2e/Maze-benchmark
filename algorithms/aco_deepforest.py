@@ -249,12 +249,12 @@ class ACODeepForestSolver:
         maze = maze.astype(self.dtype)
         
         # 시작점이나 목표점이 벽인 경우
-        if maze[start[0], start[1]] == 1:
+        if maze[start[0], start[1]] == 0:
             result.failure_reason = "시작점이 벽입니다"
             result.execution_time = time.time() - start_time
             return result
         
-        if maze[goal[0], goal[1]] == 1:
+        if maze[goal[0], goal[1]] == 0:
             result.failure_reason = "목표점이 벽입니다"
             result.execution_time = time.time() - start_time
             return result
