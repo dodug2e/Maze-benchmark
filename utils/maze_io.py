@@ -266,6 +266,121 @@ def check_dataset_consistency(dataset_root: str = "datasets"):
             unique_sizes = list(set(sizes))
             print(f"미로 크기 종류: {unique_sizes}")
 
+def load_sample(sample_id: str, subset: str = "train") -> Tuple[Image.Image, Dict, Optional[np.ndarray]]:
+
+    """
+
+    편의 함수: 샘플 로드
+
+    
+
+    Args:
+
+        sample_id: 샘플 ID
+
+        subset: 데이터셋 분할
+
+        
+
+    Returns:
+
+        tuple: (PIL Image, metadata dict, numpy array or None)
+
+    """
+
+    loader = get_loader()
+
+    return loader.load_sample(sample_id, subset)
+
+
+
+
+
+def load_maze_as_array(sample_id: str, subset: str = "train") -> Tuple[np.ndarray, Dict]:
+
+    """
+
+    편의 함수: 미로를 NumPy 배열로 로드
+
+    
+
+    Returns:
+
+        tuple: (maze array, metadata dict)
+
+    """
+
+    loader = get_loader()
+
+    img, metadata, array = loader.load_sample(sample_id, subset)
+
+    
+
+    # 미리 저장된 배열이 있으면 사용, 없으면 이미지에서 변환
+
+    if array is not None:
+
+        maze_array = array
+
+    else:
+
+        maze_array = loader.convert_image_to_array(img)
+
+    
+
+    return maze_array, metadata
+
+
+
+
+
+def get_dataset_stats(subset: str = "train") -> Dict:
+
+    """데이터셋 통계 정보 반환"""
+
+    loader = get_loader()
+
+    sample_ids = loader.get_sample_ids(subset)
+
+    
+
+    stats = {
+
+        'total_samples': len(sample_ids),
+
+        'sample_ids': sample_ids[:10],  # 처음 10개만 표시
+
+        'sizes': {}
+
+    }
+
+    
+
+    # 크기 분포 계산 (처음 100개 샘플만)
+
+    size_counts = {}
+
+    for sample_id in sample_ids[:100]:
+
+        try:
+
+            size = loader.get_maze_size(sample_id, subset)
+
+            size_str = f"{size[0]}x{size[1]}"
+
+            size_counts[size_str] = size_counts.get(size_str, 0) + 1
+
+        except Exception as e:
+
+            logger.warning(f"Failed to get size for sample {sample_id}: {e}")
+
+    
+
+    stats['sizes'] = size_counts
+
+    return stats
+
+
 
 if __name__ == "__main__":
     # 데이터셋 일관성 검사 실행
