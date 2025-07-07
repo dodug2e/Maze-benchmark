@@ -1523,3 +1523,66 @@
 2025-07-04 22:03:44,766 - __main__ - INFO - 최종 벤치마크 리포트 생성 중...
 2025-07-04 22:03:44,785 - __main__ - INFO - 최종 리포트 생성 완료: output\results\benchmark_report.md
 2025-07-04 22:03:44,840 - __main__ - INFO - 전체 벤치마크 완료! 총 소요 시간: 6083초
+2025-07-07 14:16:53,177 - utils.profiler - INFO - GPU 감지: NVIDIA GeForce RTX 3060 Laptop GPU
+2025-07-07 14:16:53,212 - __main__ - INFO - ML 모델 학습 파이프라인 시작
+2025-07-07 14:16:53,220 - __main__ - INFO - 초기 VRAM 사용률: 22.3%
+2025-07-07 14:16:53,319 - utils.maze_io - INFO - Found 10000 samples in train subset
+2025-07-07 14:16:53,320 - __main__ - INFO - train 샘플 수 제한: 2000
+2025-07-07 14:16:53,341 - utils.maze_io - INFO - Found 8000 samples in valid subset
+2025-07-07 14:16:53,342 - __main__ - INFO - valid 샘플 수 제한: 500
+2025-07-07 14:16:53,347 - utils.maze_io - INFO - Found 2000 samples in test subset
+2025-07-07 14:16:53,347 - __main__ - INFO - test 샘플 수 제한: 200
+2025-07-07 14:16:53,348 - __main__ - INFO - 데이터 분할: train=2000, valid=500, test=200
+2025-07-07 14:16:53,348 - __main__ - INFO - 
+==================================================
+2025-07-07 14:16:53,348 - __main__ - INFO - CNN 모델 학습 시작
+2025-07-07 14:16:53,348 - __main__ - INFO - ==================================================
+2025-07-07 14:16:53,348 - utils.profiler - INFO - 성능 측정 시작: CNN 학습
+2025-07-07 14:16:53,362 - utils.profiler - INFO - 성능 모니터링 시작
+2025-07-07 14:16:53,434 - __main__ - INFO - CNN 파라미터: 6,878,020
+2025-07-07 14:16:53,434 - __main__ - INFO - 예상 메모리: 26.2MB
+2025-07-07 14:17:03,402 - algorithms.cnn_model - INFO - CNN 모델이 cuda에 로드되었습니다.
+2025-07-07 14:17:03,402 - algorithms.cnn_model - INFO - 모델 파라미터: 6,878,020
+2025-07-07 14:17:03,403 - algorithms.cnn_model - INFO - 예상 메모리: 26.2MB
+2025-07-07 14:17:10,249 - algorithms.cnn_model - INFO - Epoch 0, Batch 0, Loss: 1.383489, Acc: 25.00%
+2025-07-07 14:17:11,787 - algorithms.cnn_model - INFO - Epoch 0, Batch 100, Loss: 1.402053, Acc: 25.00%
+2025-07-07 14:17:13,312 - algorithms.cnn_model - INFO - Epoch 0, Batch 200, Loss: 1.383870, Acc: 24.69%
+2025-07-07 14:17:24,188 - __main__ - INFO - Epoch 1/50 - Train: 1.4016(24.65%) Val: 1.3849(27.40%) VRAM: 2082.8MB
+2025-07-07 14:17:24,331 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\best_cnn_model.pth
+2025-07-07 14:17:30,803 - algorithms.cnn_model - INFO - Epoch 1, Batch 0, Loss: 1.390017, Acc: 25.00%
+2025-07-07 14:17:32,370 - algorithms.cnn_model - INFO - Epoch 1, Batch 100, Loss: 1.393197, Acc: 26.86%
+2025-07-07 14:17:33,890 - algorithms.cnn_model - INFO - Epoch 1, Batch 200, Loss: 1.404660, Acc: 26.37%
+2025-07-07 14:17:39,577 - __main__ - INFO - Epoch 2/50 - Train: 1.3866(25.90%) Val: 1.3877(25.20%) VRAM: 2082.5MB
+2025-07-07 14:17:45,950 - algorithms.cnn_model - INFO - Epoch 2, Batch 0, Loss: 1.379112, Acc: 50.00%
+2025-07-07 14:17:47,632 - algorithms.cnn_model - INFO - Epoch 2, Batch 100, Loss: 1.386721, Acc: 27.23%
+2025-07-07 14:17:49,194 - algorithms.cnn_model - INFO - Epoch 2, Batch 200, Loss: 1.385556, Acc: 25.12%
+2025-07-07 14:19:02,283 - utils.profiler - INFO - GPU 감지: NVIDIA GeForce RTX 3060 Laptop GPU
+2025-07-07 14:19:02,308 - __main__ - INFO - ML 모델 학습 파이프라인 시작
+2025-07-07 14:19:02,315 - __main__ - INFO - 초기 VRAM 사용률: 22.5%
+2025-07-07 14:19:02,416 - utils.maze_io - INFO - Found 10000 samples in train subset
+2025-07-07 14:19:02,417 - __main__ - INFO - train 샘플 수 제한: 2000
+2025-07-07 14:19:02,438 - utils.maze_io - INFO - Found 8000 samples in valid subset
+2025-07-07 14:19:02,439 - __main__ - INFO - valid 샘플 수 제한: 500
+2025-07-07 14:19:02,445 - utils.maze_io - INFO - Found 2000 samples in test subset
+2025-07-07 14:19:02,445 - __main__ - INFO - test 샘플 수 제한: 200
+2025-07-07 14:19:02,445 - __main__ - INFO - 데이터 분할: train=2000, valid=500, test=200
+2025-07-07 14:19:02,445 - __main__ - INFO - 
+==================================================
+2025-07-07 14:19:02,445 - __main__ - INFO - CNN 모델 학습 시작
+2025-07-07 14:19:02,445 - __main__ - INFO - ==================================================
+2025-07-07 14:19:02,447 - utils.profiler - INFO - 성능 측정 시작: CNN 학습
+2025-07-07 14:19:02,459 - utils.profiler - INFO - 성능 모니터링 시작
+2025-07-07 14:19:02,515 - __main__ - INFO - CNN 파라미터: 6,878,020
+2025-07-07 14:19:02,515 - __main__ - INFO - 예상 메모리: 26.2MB
+2025-07-07 14:19:04,048 - algorithms.cnn_model - INFO - CNN 모델이 cuda에 로드되었습니다.
+2025-07-07 14:19:04,048 - algorithms.cnn_model - INFO - 모델 파라미터: 6,878,020
+2025-07-07 14:19:04,048 - algorithms.cnn_model - INFO - 예상 메모리: 26.2MB
+2025-07-07 14:19:10,631 - algorithms.cnn_model - INFO - Epoch 0, Batch 0, Loss: 1.384922, Acc: 37.50%
+2025-07-07 14:19:12,168 - algorithms.cnn_model - INFO - Epoch 0, Batch 100, Loss: 1.386906, Acc: 24.63%
+2025-07-07 14:19:13,693 - algorithms.cnn_model - INFO - Epoch 0, Batch 200, Loss: 1.370703, Acc: 25.56%
+2025-07-07 14:19:19,436 - __main__ - INFO - Epoch 1/50 - Train: 1.3964(25.15%) Val: 1.3853(26.60%) VRAM: 2086.9MB
+2025-07-07 14:19:19,550 - algorithms.cnn_model - INFO - 모델이 저장되었습니다: output\models\best_cnn_model.pth
+2025-07-07 14:19:25,974 - algorithms.cnn_model - INFO - Epoch 1, Batch 0, Loss: 1.380207, Acc: 37.50%
+2025-07-07 14:19:27,507 - algorithms.cnn_model - INFO - Epoch 1, Batch 100, Loss: 1.349368, Acc: 24.63%
+2025-07-07 14:19:29,032 - algorithms.cnn_model - INFO - Epoch 1, Batch 200, Loss: 1.368917, Acc: 24.38%
+2025-07-07 14:19:34,765 - __main__ - INFO - Epoch 2/50 - Train: 1.3917(24.60%) Val: 1.3859(25.60%) VRAM: 2086.9MB

@@ -183,7 +183,7 @@ class MazeDataset(torch.utils.data.Dataset):
         pad_w = (max_size - current_w) // 2
         
         # 패딩 (벽으로 채움)
-        padded_maze = np.zeros((max_size, max_size), dtype=maze_array.dtype)
+        padded_maze = np.ones((max_size, max_size), dtype=maze_array.dtype)
         padded_maze[pad_h:pad_h+current_h, pad_w:pad_w+current_w] = maze_array
         
         # target_size로 리사이즈

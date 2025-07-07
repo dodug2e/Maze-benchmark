@@ -1,0 +1,49 @@
+{
+  "algorithm": "ACO_DeepForest",
+  "total_samples": 5,
+  "successful_runs": 0,
+  "failed_runs": 5,
+  "average_solution_length": 0,
+  "average_execution_time": 0.3767066955566406,
+  "performance_metrics": {
+    "duration_seconds": 2.0,
+    "total_samples": 4,
+    "cpu_percent": {
+      "min": 0.0,
+      "max": 14.5,
+      "avg": 8.35,
+      "peak": 14.5
+    },
+    "memory_mb": {
+      "min": 14287.58984375,
+      "max": 14301.09375,
+      "avg": 14294.7529296875,
+      "peak": 14301.09375
+    },
+    "gpu_percent": {
+      "min": 0,
+      "max": 16,
+      "avg": 9.25,
+      "peak": 16
+    },
+    "vram_used_mb": {
+      "min": 1215.56640625,
+      "max": 1224.50390625,
+      "avg": 1221.67578125,
+      "peak": 1224.50390625
+    },
+    "vram_total_mb": 6144.0,
+    "power_watts": {
+      "min": 16.903,
+      "max": 17.24,
+      "avg": 17.064999999999998,
+      "peak": 17.24
+    },
+    "temperature_c": {
+      "min": 36,
+      "max": 37,
+      "avg": 36.75,
+      "peak": 37
+    }
+  }
+}

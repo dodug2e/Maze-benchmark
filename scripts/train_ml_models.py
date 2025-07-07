@@ -66,9 +66,9 @@ class MLModelTrainer:
             
             # RTX 3060 메모리 제한을 고려한 샘플 수 조정
             max_samples = self.config.get(f'max_{subset}_samples', {
-                'train': 2000,
-                'valid': 500,
-                'test': 200
+                'train': 10000,
+                'valid': 8000,
+                'test': 2000
             }[subset])
             
             if len(sample_ids) > max_samples:
@@ -216,7 +216,7 @@ class MLModelTrainer:
                 'n_estimators': df_config.get('n_estimators', 50),
                 'max_depth': df_config.get('max_depth', 10),
                 'min_improvement': df_config.get('min_improvement', 0.005),
-                'patience': df_config.get('patience', 1),
+                'patience': df_config.get('patience', 5),
                 'random_state': 42
             }
             
